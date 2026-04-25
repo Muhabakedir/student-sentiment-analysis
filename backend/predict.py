@@ -30,7 +30,7 @@ POSITIVE_WORDS = {
 }
 
 # ── HUGGING FACE API CONFIGURATION ────────────────────────
-HF_API_URL = os.getenv("HF_API_URL", "https://api-inference.huggingface.co/models/muhaba23/student-sentiment-model")
+HF_API_URL = os.getenv("HF_API_URL", "https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment")
 HF_API_TOKEN = os.getenv("HF_API_TOKEN", "")
 
 # ── CHECK API READY ────────────────────────────────────────
