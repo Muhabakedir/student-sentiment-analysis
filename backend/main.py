@@ -374,8 +374,10 @@ def get_service_stats(
         q = q.filter(models.Feedback.created_at <= datetime.fromisoformat(date_to + "T23:59:59"))
 
     rows = q.group_by(models.Feedback.service, models.Feedback.sentiment).all()
-    agg  = defaultdict(lambda: {"positive": 0, "neutral": 0, "negative": 0, "total": 0})
+    agg  = defaultdict(lambda: {"positive": 0, "neutral": 0, "negative": 0, "error": 0, "total": 0})
     for service, sentiment, count in rows:
+        if sentiment not in ["positive", "neutral", "negative", "error"]:
+            sentiment = "error"
         agg[service][sentiment] += count
         agg[service]["total"]   += count
     return [{"service": s, **v} for s, v in agg.items()]
@@ -399,8 +401,10 @@ def get_theme_stats(
         q = q.filter(models.Feedback.created_at <= datetime.fromisoformat(date_to + "T23:59:59"))
 
     rows = q.group_by(models.Feedback.theme, models.Feedback.sentiment).all()
-    agg  = defaultdict(lambda: {"positive": 0, "neutral": 0, "negative": 0, "total": 0})
+    agg  = defaultdict(lambda: {"positive": 0, "neutral": 0, "negative": 0, "error": 0, "total": 0})
     for theme, sentiment, count in rows:
+        if sentiment not in ["positive", "neutral", "negative", "error"]:
+            sentiment = "error"
         agg[theme][sentiment] += count
         agg[theme]["total"]   += count
     return [{"theme": t, **v} for t, v in agg.items()]
