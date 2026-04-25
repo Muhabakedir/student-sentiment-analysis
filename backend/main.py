@@ -121,14 +121,12 @@ app.add_middleware(
         "http://localhost:5173",
         "http://localhost:5174",
         "http://localhost:5175",
-        # Add your Vercel frontend URL here after deployment
-        # Example: "https://your-app.vercel.app"
+        "https://student-sentiment-analysis-chi.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # ── Health ────────────────────────────────────────────────
 @app.get("/")
 def root():
