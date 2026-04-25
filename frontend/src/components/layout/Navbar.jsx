@@ -1,0 +1,89 @@
+import { Menu, Sun, Moon, LogOut, Crown } from "lucide-react";
+import { useTheme } from "../../context/ThemeContext";
+import { useAuth } from "../../context/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
+
+const pageTitles = {
+  "/dashboard":                 { title: "Dashboard", sub: "Overview & analytics" },
+  "/dashboard/services":        { title: "Service Analysis", sub: "Per-service sentiment breakdown" },
+  "/dashboard/feedback":        { title: "Feedback Explorer", sub: "Browse and filter all submissions" },
+  "/dashboard/themes":          { title: "Themes", sub: "Issue topics and trends" },
+  "/dashboard/recommendations": { title: "Recommendations", sub: "Action items based on feedback" },
+  "/dashboard/users":           { title: "Admin Users", sub: "Manage administrator accounts" },
+};
+
+export default function Navbar({ onMenuClick }) {
+  const { darkMode, setDarkMode } = useTheme();
+  const { email, logout, isSuperAdmin } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const page = pageTitles[location.pathname] || { title: "Dashboard", sub: "" };
+  const initials = email ? email.slice(0, 2).toUpperCase() : "AD";
+
+  const handleLogout = () => { logout(); navigate("/"); };
+
+  return (
+    <header className="sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 lg:px-6 py-3.5 flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400 transition-colors"
+          aria-label="Open menu"
+        >
+          <Menu size={20} />
+        </button>
+        <div>
+          <h1 className="text-base font-semibold text-gray-900 dark:text-white leading-tight">{page.title}</h1>
+          {page.sub && (
+            <p className="text-xs text-gray-400 dark:text-gray-500 hidden sm:block mt-0.5">{page.sub}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2">
+        {/* Theme toggle */}
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className={`p-2 rounded-xl border transition-all
+            ${darkMode
+              ? "bg-gray-800 border-gray-700 text-yellow-400 hover:bg-gray-700"
+              : "bg-gray-100 border-gray-200 text-gray-600 hover:bg-gray-200"
+            }`}
+          title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label="Toggle theme"
+        >
+          {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+
+        {/* Admin profile + logout */}
+        <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-700 ml-1">
+          <div className="hidden sm:block text-right">
+            <div className="flex items-center gap-1.5 justify-end">
+              <p className="text-xs font-medium text-gray-700 dark:text-gray-300 leading-tight">{email || "Admin"}</p>
+              {isSuperAdmin && (
+                <span title="Superadmin">
+                  <Crown size={12} className="text-yellow-500" />
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-gray-400 dark:text-gray-500">
+              {isSuperAdmin ? "Superadmin" : "Administrator"}
+            </p>
+          </div>
+          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">
+            {initials}
+          </div>
+          <button
+            onClick={handleLogout}
+            className="p-2 rounded-xl text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            title="Sign out"
+            aria-label="Sign out"
+          >
+            <LogOut size={16} />
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
