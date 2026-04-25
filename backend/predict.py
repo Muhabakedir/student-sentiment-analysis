@@ -49,7 +49,9 @@ def predict(text: str) -> dict:
 
     try:
         headers = {"Authorization": f"Bearer {HF_API_TOKEN}"}
-        response = requests.post(HF_API_URL, headers=headers, json={"inputs": text})
+        response = requests.post(HF_API_URL, headers=headers, json={"inputs": text}, timeout=10)
+        print(f"🔍 HF API Response Status: {response.status_code}")
+        print(f"🔍 HF API Response: {response.text[:500]}")
         response.raise_for_status()
         
         result = response.json()
