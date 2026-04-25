@@ -2,9 +2,6 @@ fastapi
 uvicorn
 sqlalchemy
 pydantic
-torch
-transformers
-safetensors
 numpy
 python-multipart
 requests
