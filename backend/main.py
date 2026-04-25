@@ -125,7 +125,7 @@ app.add_middleware(
         "http://localhost:5175",
         "https://student-sentiment-analysis-chi.vercel.app",
         "https://student-sentiment-analysis.onrender.com",
-        "https://student-sentiment-analysis-f5a4utk71-muhabakedirs-projects.vercel.app",
+        "https://student-sentiment-analysis-*.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
