@@ -43,7 +43,7 @@ load_dotenv()
 
 # Safe ML import
 try:
-    from predict import predict as bert_predict, model_ready, _load as load_model_now
+    from predict import predict as bert_predict, model_ready
     MODEL_AVAILABLE = True
 except Exception as e:
     print("⚠️ Model failed to load:", e)
@@ -52,15 +52,21 @@ except Exception as e:
 
 # Create tables + seed default admin
 print("🔧 Creating database tables...")
-try:
-    models.Base.metadata.create_all(bind=engine)
-    print("✅ Database tables created successfully")
-except Exception as e:
-    print(f"❌ Failed to create tables: {e}")
-    print("⚠️ Continuing without database connection...")
+if engine:
+    try:
+        models.Base.metadata.create_all(bind=engine)
+        print("✅ Database tables created successfully")
+    except Exception as e:
+        print(f"❌ Failed to create tables: {e}")
+        print("⚠️ Continuing without database connection...")
+else:
+    print("⚠️ Database not configured - skipping table creation")
 
 def seed_admin():
     """Create default superadmin if none exists."""
+    if not engine:
+        print("⚠️ Database not configured - skipping admin seeding")
+        return
     print("👤 Seeding admin user...")
     try:
         db = next(get_db())
@@ -105,11 +111,7 @@ async def startup_event():
     
     print("🤖 Loading BERT model...")
     if MODEL_AVAILABLE:
-        try:
-            load_model_now()
-            print("✅ BERT model pre-loaded at startup")
-        except Exception as e:
-            print(f"⚠️ Model pre-load failed (will load on first use): {e}")
+        print("✅ BERT model available (uses Hugging Face API)")
     else:
         print("⚠️ Model not available")
     
