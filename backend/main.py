@@ -985,6 +985,53 @@ def student_history(
     ]
 
 
+# ── Re-analyze feedback (SUPERADMIN ONLY) ─────────────────
+@app.post("/api/admin/reanalyze")
+def reanalyze_feedback(
+    db: Session = Depends(get_db),
+    _admin = Depends(get_current_superadmin),
+):
+    """Re-analyze ALL feedback using current model + override rules.
+    Fixes entries where the model misclassified sentiment (e.g., 'zero quality' → positive)."""
+    if not MODEL_AVAILABLE:
+        raise HTTPException(status_code=500, detail="Model not available for re-analysis")
+
+    entries = db.query(models.Feedback).all()
+    updated = 0
+
+    for entry in entries:
+        try:
+            result = bert_predict(entry.text)
+            new_sentiment = result["sentiment"]
+            new_confidence = result["confidence"]
+
+            if new_sentiment != entry.sentiment:
+                print(f"  ✏️ ID {entry.id}: '{entry.sentiment}' → '{new_sentiment}' | text: '{entry.text[:50]}'")
+                entry.sentiment = new_sentiment
+                entry.confidence = new_confidence
+                updated += 1
+        except Exception as e:
+            print(f"  ⚠️ ID {entry.id} failed: {e}")
+
+    db.commit()
+
+    # Activity log
+    db.add(models.ActivityLog(
+        actor=_admin.email,
+        role="super_admin",
+        action="reanalyze_feedback",
+        target="all_feedback",
+        detail=f"Re-analyzed {len(entries)} entries, updated {updated}",
+    ))
+    db.commit()
+
+    return {
+        "total": len(entries),
+        "updated": updated,
+        "message": f"Re-analyzed {len(entries)} feedback entries. {updated} sentiment(s) corrected."
+    }
+
+
 # ── Run server ────────────────────────────────────────────
 if __name__ == "__main__":
     import uvicorn
