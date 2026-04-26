@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   MessageSquare, ThumbsUp, Minus, ThumbsDown,
-  AlertTriangle, TrendingDown, TrendingUp, Activity, Users, UserCheck,
+  AlertTriangle, TrendingDown, TrendingUp, Activity,
 } from "lucide-react";
 import { useLiveData } from "../hooks/useLiveData";
 import StatCard from "../components/ui/StatCard";
@@ -102,7 +102,7 @@ export default function Dashboard() {
         {/* KPI Cards */}
         <motion.div 
           variants={itemVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
         >
           <StatCard
             label="Total Feedback"
@@ -131,20 +131,6 @@ export default function Dashboard() {
             icon={ThumbsDown}
             color="red"
             sub={`${stats.negative.toLocaleString()} responses`}
-          />
-          <StatCard
-            label="Registered Students"
-            value={(stats.total_students || 0).toLocaleString()}
-            icon={Users}
-            color="blue"
-            sub="Anonymous — no names shown"
-          />
-          <StatCard
-            label="Students Gave Feedback"
-            value={(stats.students_with_feedback || 0).toLocaleString()}
-            icon={UserCheck}
-            color="purple"
-            sub="Anonymous — no names shown"
           />
         </motion.div>
 
