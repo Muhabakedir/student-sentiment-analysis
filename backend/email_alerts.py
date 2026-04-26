@@ -132,6 +132,38 @@ def send_student_reset_link(to_email: str, token: str):
     return _send_via_resend(to_email, "UniFeedback — Reset Your Student Password", html)
 
 
+def send_feedback_confirmation(to_email: str, service: str, theme: str, sentiment: str, feedback_id: int):
+    """Send a confirmation email to the individual who submitted feedback."""
+    sentiment_styles = {
+        "positive": ("✅", "#16a34a", "Positive"),
+        "neutral":  ("😐", "#ca8a04", "Neutral"),
+        "negative": ("⚠️", "#dc2626", "Negative"),
+    }
+    icon, color, label = sentiment_styles.get(sentiment, ("❓", "#6b7280", sentiment.capitalize()))
+
+    html = f"""
+    <html><body style="font-family:sans-serif;padding:20px;max-width:560px;margin:0 auto">
+      <h2 style="color:#4f46e5">📬 Feedback Received</h2>
+      <p>Thank you for sharing your experience. Your feedback has been recorded successfully.</p>
+      <table style="border-collapse:collapse;width:100%;max-width:500px;margin:16px 0">
+        <tr><td style="padding:8px;background:#f9fafb;font-weight:bold">Reference</td>
+            <td style="padding:8px">#{feedback_id}</td></tr>
+        <tr><td style="padding:8px;background:#f9fafb;font-weight:bold">Service</td>
+            <td style="padding:8px">{service}</td></tr>
+        <tr><td style="padding:8px;background:#f9fafb;font-weight:bold">Theme</td>
+            <td style="padding:8px">{theme}</td></tr>
+        <tr><td style="padding:8px;background:#f9fafb;font-weight:bold">Sentiment</td>
+            <td style="padding:8px;color:{color};font-weight:bold">{icon} {label}</td></tr>
+      </table>
+      <p style="margin-top:12px;color:#6b7280;font-size:13px">
+        Your feedback is anonymous — no personal information is shared with administrators.
+        If you did not submit this feedback, you can safely ignore this email.
+      </p>
+    </body></html>
+    """
+    return _send_via_resend(to_email, f"UniFeedback — Feedback Received #{feedback_id}", html)
+
+
 def send_activation_link(to_email: str, token: str):
     """Send email with activation link for a newly created admin account."""
     activate_url = f"http://localhost:5173/admin/activate?token={token}"

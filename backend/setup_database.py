@@ -54,6 +54,7 @@ def setup_database():
                     text TEXT NOT NULL,
                     sentiment VARCHAR(50) DEFAULT 'pending',
                     confidence FLOAT DEFAULT 0.0,
+                    email VARCHAR(255),
                     session_hash VARCHAR(64),
                     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
                 )

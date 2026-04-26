@@ -21,7 +21,7 @@ export default function StudentPortal() {
   const student = JSON.parse(sessionStorage.getItem("student") || "{}");
   const studentName = student.name || "Student";
 
-  const [form, setForm] = useState({ service: "", theme: "", text: "", sentiment: "" });
+  const [form, setForm] = useState({ service: "", theme: "", text: "", email: "", sentiment: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +43,7 @@ export default function StudentPortal() {
       const res = await fetch(`${API}/api/feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ service: form.service, theme: form.theme, text: form.text, session_id: sessionId }),
+        body: JSON.stringify({ service: form.service, theme: form.theme, text: form.text, session_id: sessionId, email: form.email || null }),
       });
       const data = await res.json();
       setForm((prev) => ({ ...prev, sentiment: data?.sentiment || "unknown" }));
@@ -58,7 +58,7 @@ export default function StudentPortal() {
   };
 
   const handleAnother = () => {
-    setForm({ service: "", theme: "", text: "", sentiment: "" });
+    setForm({ service: "", theme: "", text: "", email: "", sentiment: "" });
     setSubmitted(false);
   };
 
@@ -208,6 +208,20 @@ export default function StudentPortal() {
                     onChange={(e) => setForm((prev) => ({ ...prev, text: e.target.value }))}
                     placeholder="Describe your experience in detail..."
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors resize-none placeholder-gray-400"
+                  />
+                </div>
+
+                {/* Email (optional) */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                    Email <span className="text-gray-400 font-normal">(optional — to receive confirmation)</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
+                    placeholder="your@email.com"
+                    className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors placeholder-gray-400"
                   />
                 </div>
 

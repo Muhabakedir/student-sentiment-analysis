@@ -37,7 +37,7 @@ from auth import (
     hash_password, verify_password,
     create_access_token, get_current_admin, get_current_superadmin,
 )
-from email_alerts import check_and_alert
+from email_alerts import check_and_alert, send_feedback_confirmation
 
 load_dotenv()
 
@@ -56,6 +56,15 @@ if engine:
     try:
         models.Base.metadata.create_all(bind=engine)
         print("✅ Database tables created successfully")
+        # Migration: add optional email column to feedback table if missing
+        with engine.connect() as conn:
+            from sqlalchemy import inspect as sa_inspect
+            inspector = sa_inspect(engine)
+            feedback_cols = [c["name"] for c in inspector.get_columns("feedback")]
+            if "email" not in feedback_cols:
+                conn.execute(text("ALTER TABLE feedback ADD COLUMN email VARCHAR(255)"))
+                conn.commit()
+                print("✅ Migration: added 'email' column to feedback table")
     except Exception as e:
         print(f"❌ Failed to create tables: {e}")
         print("⚠️ Continuing without database connection...")
@@ -240,11 +249,19 @@ def submit_feedback(payload: schemas.FeedbackCreate, db: Session = Depends(get_d
         text         = payload.text,
         sentiment    = sentiment,
         confidence   = confidence,
+        email        = payload.email or None,
         session_hash = session_hash,
     )
     db.add(entry)
     db.commit()
     db.refresh(entry)
+
+    # Send confirmation email if the individual provided one
+    if payload.email:
+        try:
+            send_feedback_confirmation(payload.email, payload.service, payload.theme, sentiment, entry.id)
+        except Exception as e:
+            print("⚠️ Confirmation email failed:", e)
 
     # Check if alert threshold exceeded (runs in background)
     try:
