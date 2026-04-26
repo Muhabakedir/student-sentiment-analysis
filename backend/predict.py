@@ -7,6 +7,29 @@ load_dotenv()
 # ── LABEL MAPPING ────────────────────────────────────────
 ID2LABEL = {0: "negative", 1: "neutral", 2: "positive"}
 
+# ── NEGATIVE OVERRIDE PATTERNS ──────────────────────────────
+# Regex patterns that ALWAYS indicate negative sentiment,
+# regardless of what the model says.
+NEGATIVE_OVERRIDE_PATTERNS = [
+    re.compile(r"\b(zero|0|no)\s*quality\b", re.I),
+    re.compile(r"\bnot\s+(good|great|fine|okay|ok|acceptable|working|available|helpful)\b", re.I),
+    re.compile(r"\b(not|no|never|n't)\s+(recommend|worth|useful|reliable|clean|safe)\b", re.I),
+    re.compile(r"\b(too|very|really)\s+(slow|bad|poor|dirty|expensive|crowded|noisy|slow)\b", re.I),
+    re.compile(r"\b(un)?available\b.*\b(not|no|zero|0|never)\b", re.I),
+    re.compile(r"\b(not|no|zero|0)\s*available\b", re.I),
+    re.compile(r"\b(almost|nearly)\s+no\b", re.I),
+    re.compile(r"\bnothing\b.*\b(work|good|help|available)\b", re.I),
+    re.compile(r"\b(can'?t|cannot|don'?t|doesn'?t|won'?t|isn'?t|aren'?t)\b", re.I),
+    re.compile(r"\b(worst|terrible|horrible|awful|useless|worthless|garbage|trash)\b", re.I),
+]
+
+def _is_forcibly_negative(text: str) -> bool:
+    """Return True if text contains unmistakable negative signals."""
+    for pattern in NEGATIVE_OVERRIDE_PATTERNS:
+        if pattern.search(text):
+            return True
+    return False
+
 # ── SENTIMENT LEXICON ──────────────────────────────────────
 NEGATIVE_WORDS = {
     "terrible", "terrifying", "horrible", "awful", "dreadful", "disgusting",
@@ -67,6 +90,17 @@ def predict(text: str) -> dict:
                         prob_dict["positive"] = round(pred.score, 4)
                     else:
                         prob_dict["neutral"] = round(pred.score, 4)
+
+                # ── Negative override: fix model misclassifications ──
+                if sentiment != "negative" and _is_forcibly_negative(text):
+                    print(f"  ⚠️ Override: model said '{sentiment}' but text is clearly negative → forcing 'negative'")
+                    sentiment = "negative"
+                    confidence = round(max(confidence, 0.75), 4)
+                    prob_dict = {
+                        "negative": round(max(prob_dict.get("negative", 0), 0.75), 4),
+                        "neutral": round(min(prob_dict.get("neutral", 0.1), 0.15), 4),
+                        "positive": round(min(prob_dict.get("positive", 0.1), 0.10), 4),
+                    }
 
                 return {
                     "sentiment": sentiment,
