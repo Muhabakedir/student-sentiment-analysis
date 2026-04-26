@@ -254,19 +254,11 @@ def submit_feedback(payload: schemas.FeedbackCreate, db: Session = Depends(get_d
         text         = payload.text,
         sentiment    = sentiment,
         confidence   = confidence,
-        email        = payload.email or None,
         session_hash = session_hash,
     )
     db.add(entry)
     db.commit()
     db.refresh(entry)
-
-    # Send confirmation email if the individual provided one
-    if payload.email:
-        try:
-            send_feedback_confirmation(payload.email, payload.service, payload.theme, sentiment, entry.id)
-        except Exception as e:
-            print("⚠️ Confirmation email failed:", e)
 
     # Check if alert threshold exceeded (runs in background)
     try:

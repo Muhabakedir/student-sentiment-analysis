@@ -8,7 +8,6 @@ class FeedbackCreate(BaseModel):
     theme: str
     text: str
     session_id: str = ""  # anonymous browser session ID
-    email: Optional[str] = None  # optional — for confirmation email
 
 class FeedbackOut(BaseModel):
     id: int
@@ -17,7 +16,6 @@ class FeedbackOut(BaseModel):
     text: str
     sentiment: str
     confidence: float
-    email: Optional[str] = None
     created_at: datetime
 
     class Config:
