@@ -19,6 +19,7 @@ import Feedback from "./pages/Feedback";
 import Themes from "./pages/Themes";
 import Recommendations from "./pages/Recommendations";
 import AdminUsers from "./pages/AdminUsers";
+import Students from "./pages/Students";
 
 // Protect admin dashboard — redirect to login if not authenticated
 function ProtectedRoute({ children }) {
@@ -63,6 +64,7 @@ function AppRoutes() {
         <Route path="themes" element={<Themes />} />
         <Route path="recommendations" element={<Recommendations />} />
         <Route path="users" element={<AdminUsers />} />
+        <Route path="students" element={<Students />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
