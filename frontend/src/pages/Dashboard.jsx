@@ -69,17 +69,12 @@ export default function Dashboard() {
       initial="hidden"
       animate="visible"
     >
-      {/* Animated background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-      </div>
 
       <div className="relative z-10 space-y-6 max-w-7xl mx-auto">
         {/* Top bar */}
         <motion.div 
           variants={itemVariants}
-          className="flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-violet-500/20 to-indigo-500/20 dark:from-violet-500/20 dark:to-indigo-500/20 rounded-2xl px-6 py-4 shadow-lg border border-violet-500/30 dark:border-violet-500/30 backdrop-blur-xl"
+          className="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-black rounded-2xl px-6 py-4 shadow-sm border border-gray-200 dark:border-gray-800"
         >
           <div className="flex items-center gap-3">
             <div className={`flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full
@@ -91,7 +86,7 @@ export default function Dashboard() {
               {isLive ? "Live — BERT model active" : "Offline"}
             </div>
             {isLive && (
-              <span className="text-xs text-slate-400 dark:text-slate-500 bg-slate-700/50 px-3 py-1.5 rounded-lg border border-slate-600/50">
+              <span className="text-xs text-gray-500 dark:text-gray-600 bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-800">
                 {stats.total} total submissions
               </span>
             )}
@@ -143,19 +138,19 @@ export default function Dashboard() {
             {mostPositiveService && mostPositiveService.positive > 0 && (
               <motion.div 
                 whileHover={{ y: -4 }}
-                className="flex items-center gap-4 bg-gradient-to-br from-emerald-500/20 to-emerald-500/10 dark:from-emerald-500/20 dark:to-emerald-500/10 border border-emerald-500/50 dark:border-emerald-500/50 rounded-2xl px-6 py-4 shadow-lg backdrop-blur-xl"
+                className="flex items-center gap-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-2xl px-6 py-4 shadow-sm"
               >
-                <div className="p-3 bg-emerald-500/30 dark:bg-emerald-500/30 rounded-xl shrink-0 shadow-md">
-                  <TrendingUp size={20} className="text-emerald-400 dark:text-emerald-400" />
+                <div className="p-3 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl shrink-0">
+                  <TrendingUp size={20} className="text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-emerald-400 dark:text-emerald-400 font-semibold uppercase tracking-wider mb-1">
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider mb-1">
                     Highest Satisfaction
                   </p>
-                  <p className="text-sm font-semibold text-emerald-300 dark:text-emerald-200 truncate">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-emerald-300 truncate">
                     {mostPositiveService.service}
                   </p>
-                  <p className="text-xs text-emerald-400 dark:text-emerald-400 mt-1">
+                  <p className="text-xs text-emerald-500 dark:text-emerald-400 mt-1">
                     {mostPositiveService.positive} positive responses
                   </p>
                 </div>
@@ -164,19 +159,19 @@ export default function Dashboard() {
             {mostNegativeService && mostNegativeService.negative > 0 && (
               <motion.div 
                 whileHover={{ y: -4 }}
-                className="flex items-center gap-4 bg-gradient-to-br from-rose-500/20 to-rose-500/10 dark:from-rose-500/20 dark:to-rose-500/10 border border-rose-500/50 dark:border-rose-500/50 rounded-2xl px-6 py-4 shadow-lg backdrop-blur-xl"
+                className="flex items-center gap-4 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-2xl px-6 py-4 shadow-sm"
               >
-                <div className="p-3 bg-rose-500/30 dark:bg-rose-500/30 rounded-xl shrink-0 shadow-md">
-                  <TrendingDown size={20} className="text-rose-400 dark:text-rose-400" />
+                <div className="p-3 bg-rose-100 dark:bg-rose-900/40 rounded-xl shrink-0">
+                  <TrendingDown size={20} className="text-rose-600 dark:text-rose-400" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-rose-400 dark:text-rose-400 font-semibold uppercase tracking-wider mb-1">
+                  <p className="text-xs text-rose-600 dark:text-rose-400 font-semibold uppercase tracking-wider mb-1">
                     Most Negative Service
                   </p>
-                  <p className="text-sm font-semibold text-rose-300 dark:text-rose-200 truncate">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-rose-300 truncate">
                     {mostNegativeService.service}
                   </p>
-                  <p className="text-xs text-rose-400 dark:text-rose-400 mt-1">
+                  <p className="text-xs text-rose-500 dark:text-rose-400 mt-1">
                     {mostNegativeService.negative} negative responses
                   </p>
                 </div>
@@ -185,19 +180,19 @@ export default function Dashboard() {
             {mostReportedTheme && (
               <motion.div 
                 whileHover={{ y: -4 }}
-                className="flex items-center gap-4 bg-gradient-to-br from-amber-500/20 to-amber-500/10 dark:from-amber-500/20 dark:to-amber-500/10 border border-amber-500/50 dark:border-amber-500/50 rounded-2xl px-6 py-4 shadow-lg backdrop-blur-xl"
+                className="flex items-center gap-4 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-2xl px-6 py-4 shadow-sm"
               >
-                <div className="p-3 bg-amber-500/30 dark:bg-amber-500/30 rounded-xl shrink-0 shadow-md">
-                  <AlertTriangle size={20} className="text-amber-400 dark:text-amber-400" />
+                <div className="p-3 bg-amber-100 dark:bg-amber-900/40 rounded-xl shrink-0">
+                  <AlertTriangle size={20} className="text-amber-600 dark:text-amber-400" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs text-amber-400 dark:text-amber-400 font-semibold uppercase tracking-wider mb-1">
+                  <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold uppercase tracking-wider mb-1">
                     Most Reported Issue
                   </p>
-                  <p className="text-sm font-semibold text-amber-300 dark:text-amber-200 truncate">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-amber-300 truncate">
                     {mostReportedTheme[0]}
                   </p>
-                  <p className="text-xs text-amber-400 dark:text-amber-400 mt-1">
+                  <p className="text-xs text-amber-500 dark:text-amber-400 mt-1">
                     {mostReportedTheme[1]} mentions
                   </p>
                 </div>
@@ -213,12 +208,12 @@ export default function Dashboard() {
         >
           <motion.div 
             whileHover={{ y: -4 }}
-            className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-6 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl"
+            className="bg-white dark:bg-black rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800"
           >
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-lg font-semibold text-white">Sentiment Distribution</h2>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Overall breakdown across all services</p>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-300">Sentiment Distribution</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-600 mt-1">Overall breakdown across all services</p>
               </div>
             </div>
             <SentimentPieChart data={stats} />
@@ -226,12 +221,12 @@ export default function Dashboard() {
 
           <motion.div 
             whileHover={{ y: -4 }}
-            className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-6 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl"
+            className="bg-white dark:bg-black rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800"
           >
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-lg font-semibold text-white">Feedback per Service</h2>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Sentiment breakdown by university service</p>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-300">Feedback per Service</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-600 mt-1">Sentiment breakdown by university service</p>
               </div>
             </div>
             <FeedbackBarChart data={serviceStats} />
@@ -241,50 +236,50 @@ export default function Dashboard() {
         {/* Recent Feedback */}
         <motion.div 
           variants={itemVariants}
-          className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl overflow-hidden"
+          className="bg-white dark:bg-black rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden"
         >
-          <div className="px-6 py-4 border-b border-violet-500/20 dark:border-violet-500/20 flex items-center justify-between bg-gradient-to-r from-violet-900/30 to-transparent dark:from-violet-900/30 dark:to-transparent">
+          <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-                <Activity size={18} className="text-violet-400" />
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-300 flex items-center gap-2">
+                <Activity size={18} className="text-violet-500 dark:text-gray-500" />
                 Recent Feedback
               </h2>
-              <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Latest submissions with BERT sentiment</p>
+              <p className="text-xs text-gray-500 dark:text-gray-600 mt-1">Latest submissions with BERT sentiment</p>
             </div>
-            <span className="text-xs text-slate-400 dark:text-slate-500 bg-slate-700/50 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg border border-slate-600/50 dark:border-slate-600">
+            <span className="text-xs text-gray-500 dark:text-gray-600 bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-800">
               Last {recentFeedback.length}
             </span>
           </div>
-          <div className="divide-y divide-violet-500/10 dark:divide-violet-500/10">
+          <div className="divide-y divide-gray-100 dark:divide-gray-800">
             {recentFeedback.length === 0 ? (
-              <p className="px-6 py-10 text-center text-sm text-slate-400 dark:text-slate-500">
+              <p className="px-6 py-10 text-center text-sm text-gray-400 dark:text-gray-600">
                 No feedback submitted yet. Students can submit via the Student Portal.
               </p>
             ) : (
               recentFeedback.map((item, i) => (
                 <motion.div 
                   key={item.id ?? i} 
-                  whileHover={{ backgroundColor: "rgba(139, 92, 246, 0.08) }}
+                  whileHover={{ backgroundColor: "rgba(249, 250, 251, 1)" }}
                   className="px-6 py-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 transition-colors"
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-slate-200 dark:text-slate-300 line-clamp-1">{item.text}</p>
+                    <p className="text-sm text-gray-800 dark:text-gray-300 line-clamp-1">{item.text}</p>
                     <div className="flex items-center gap-2 mt-2 flex-wrap">
-                      <span className="text-xs text-violet-400 dark:text-violet-400 bg-violet-500/20 dark:bg-violet-500/20 px-2.5 py-1 rounded-md border border-violet-500/30 dark:border-violet-500/30">
+                      <span className="text-xs text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-1 rounded-md border border-violet-200 dark:border-violet-800">
                         {item.service}
                       </span>
-                      <span className="text-xs text-slate-400 dark:text-slate-500 bg-indigo-900/30 px-2.5 py-1 rounded-md border border-indigo-500/20">{item.theme}</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-500 bg-gray-100 dark:bg-gray-900 px-2.5 py-1 rounded-md border border-gray-200 dark:border-gray-800">{item.theme}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <SentimentBadge sentiment={item.sentiment} />
                     {item.confidence > 0 && (
-                      <span className="text-xs text-slate-400 dark:text-slate-500 bg-indigo-900/30 dark:bg-indigo-900/30 px-2.5 py-1 rounded-md border border-indigo-500/20 dark:border-indigo-500/20">
+                      <span className="text-xs text-gray-500 dark:text-gray-600 bg-gray-100 dark:bg-gray-900 px-2.5 py-1 rounded-md border border-gray-200 dark:border-gray-800">
                         {(item.confidence * 100).toFixed(0)}% conf.
                       </span>
                     )}
                     {item.created_at && (
-                      <span className="text-xs text-slate-500 dark:text-slate-500 hidden lg:block">
+                      <span className="text-xs text-gray-400 dark:text-gray-600 hidden lg:block">
                         {new Date(item.created_at).toLocaleDateString()}
                       </span>
                     )}

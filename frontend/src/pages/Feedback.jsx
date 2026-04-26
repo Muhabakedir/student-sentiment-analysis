@@ -143,40 +143,40 @@ export default function Feedback() {
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-4 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
+      <div className="bg-white dark:bg-black rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-800">
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-48">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="text" placeholder="Search feedback..."
               value={search} onChange={e => { setSearch(e.target.value); setPage(1); }}
-              className="w-full pl-9 pr-3 py-2 rounded-xl text-sm border border-violet-500/30 dark:border-violet-500/30 bg-violet-900/30 dark:bg-violet-900/30 text-slate-200 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
+              className="w-full pl-9 pr-3 py-2 rounded-xl text-sm border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
             />
           </div>
           <Select value={serviceFilter}   onChange={handleFilter(setServiceFilter)}   options={serviceOptions}   placeholder="All Services" />
           <Select value={sentimentFilter} onChange={handleFilter(setSentimentFilter)} options={sentimentOptions} placeholder="All Sentiments" />
           <Select value={themeFilter}     onChange={handleFilter(setThemeFilter)}     options={themeOptions}     placeholder="All Themes" />
           {hasFilters && (
-            <button onClick={clearFilters} className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-slate-400 dark:text-slate-400 hover:bg-violet-500/20 dark:hover:bg-violet-500/20 transition-colors">
+            <button onClick={clearFilters} className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-gray-500 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
               <X size={14} /> Clear
             </button>
           )}
         </div>
 
         {/* Date range + export */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-violet-500/20 dark:border-violet-500/20">
+        <div className="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-4 flex-wrap">
             <DateRangePicker dateFrom={dates.dateFrom} dateTo={dates.dateTo} onChange={setDates} />
             <div className="flex items-center gap-2">
-              <p className="text-xs text-slate-400 dark:text-slate-400">
+              <p className="text-xs text-gray-500 dark:text-gray-600">
                 {filtered.length} of {feedback.length} entries
               </p>
               <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full
                 ${isLive
-                  ? "bg-emerald-500/20 dark:bg-emerald-500/20 text-emerald-400 dark:text-emerald-400"
-                  : "bg-amber-500/20 dark:bg-amber-500/20 text-amber-400 dark:text-amber-400"
+                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
+                  : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400"
                 }`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}`} />
+                <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
                 {isLive ? "Live" : "Offline"}
               </span>
             </div>
@@ -196,20 +196,20 @@ export default function Feedback() {
             </button>
 
             {showExportMenu && (
-              <div className="absolute right-0 mt-2 w-44 bg-gradient-to-br from-violet-900/60 to-indigo-900/50 dark:from-violet-900/60 dark:to-indigo-900/50 rounded-xl shadow-lg border border-violet-500/30 dark:border-violet-500/30 z-20 overflow-hidden backdrop-blur-xl">
+              <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 z-20 overflow-hidden">
                 <button
                   onClick={handleExportCSV}
                   disabled={!isLive}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-300 dark:text-slate-300 hover:bg-violet-500/20 dark:hover:bg-violet-500/20 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  <FileSpreadsheet size={15} className="text-emerald-400 dark:text-emerald-400" />
+                  <FileSpreadsheet size={15} className="text-emerald-600 dark:text-emerald-400" />
                   Download CSV
                 </button>
                 <button
                   onClick={handleExportPDF}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-300 dark:text-slate-300 hover:bg-violet-500/20 dark:hover:bg-violet-500/20 transition-colors border-t border-violet-500/20 dark:border-violet-500/20"
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors border-t border-gray-200 dark:border-gray-800"
                 >
-                  <FileText size={15} className="text-rose-400 dark:text-rose-400" />
+                  <FileText size={15} className="text-rose-600 dark:text-rose-400" />
                   Download PDF
                 </button>
               </div>
@@ -219,11 +219,11 @@ export default function Feedback() {
       </div>
 
       {/* Table */}
-      <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl overflow-hidden">
+      <div className="bg-white dark:bg-black rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-xs text-slate-400 dark:text-slate-400 uppercase tracking-wider bg-violet-900/30 dark:bg-violet-900/30">
+              <tr className="text-left text-xs text-gray-500 dark:text-gray-600 uppercase tracking-wider bg-gray-50 dark:bg-gray-900">
                 <th className="px-5 py-3 font-medium">#</th>
                 <th className="px-5 py-3 font-medium">Service</th>
                 <th className="px-5 py-3 font-medium">Theme</th>
@@ -232,30 +232,30 @@ export default function Feedback() {
                 <th className="px-5 py-3 font-medium">Date</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-violet-500/10 dark:divide-violet-500/10">
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {loading ? (
                 [...Array(8)].map((_, i) => <tr key={i}><td colSpan={6}><SkeletonRow /></td></tr>)
               ) : paginated.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-5 py-12 text-center text-slate-400 dark:text-slate-400">
+                  <td colSpan={6} className="px-5 py-12 text-center text-gray-400 dark:text-gray-600">
                     No feedback matches your filters.
                   </td>
                 </tr>
               ) : (
                 paginated.map((item, idx) => (
-                  <tr key={item.id ?? idx} className="hover:bg-violet-500/10 dark:hover:bg-violet-500/10 transition-colors">
-                    <td className="px-5 py-3.5 text-slate-400 dark:text-slate-400 text-xs">{item.id ?? (page - 1) * PAGE_SIZE + idx + 1}</td>
+                  <tr key={item.id ?? idx} className="hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+                    <td className="px-5 py-3.5 text-gray-400 dark:text-gray-600 text-xs">{item.id ?? (page - 1) * PAGE_SIZE + idx + 1}</td>
                     <td className="px-5 py-3.5">
-                      <span className="text-xs font-medium text-violet-400 dark:text-violet-400 bg-violet-500/20 dark:bg-violet-500/20 px-2 py-0.5 rounded-lg whitespace-nowrap">
+                      <span className="text-xs font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2 py-0.5 rounded-lg whitespace-nowrap">
                         {item.service}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-slate-400 dark:text-slate-400 whitespace-nowrap">{item.theme}</td>
-                    <td className="px-5 py-3.5 text-slate-300 dark:text-slate-300 max-w-xs">
+                    <td className="px-5 py-3.5 text-gray-500 dark:text-gray-600 whitespace-nowrap">{item.theme}</td>
+                    <td className="px-5 py-3.5 text-gray-800 dark:text-gray-300 max-w-xs">
                       <p className="line-clamp-2">{item.text}</p>
                     </td>
                     <td className="px-5 py-3.5"><SentimentBadge sentiment={item.sentiment} /></td>
-                    <td className="px-5 py-3.5 text-xs text-slate-500 dark:text-slate-500 whitespace-nowrap">
+                    <td className="px-5 py-3.5 text-xs text-gray-400 dark:text-gray-600 whitespace-nowrap">
                       {item.created_at ? new Date(item.created_at).toLocaleDateString() : "—"}
                     </td>
                   </tr>
@@ -266,24 +266,24 @@ export default function Feedback() {
         </div>
 
         {totalPages > 1 && (
-          <div className="px-5 py-3 border-t border-violet-500/20 dark:border-violet-500/20 flex items-center justify-between">
-            <p className="text-xs text-slate-400 dark:text-slate-400">Page {page} of {totalPages}</p>
+          <div className="px-5 py-3 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between">
+            <p className="text-xs text-gray-500 dark:text-gray-600">Page {page} of {totalPages}</p>
             <div className="flex gap-1">
               <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 dark:text-slate-400 hover:bg-violet-500/20 dark:hover:bg-violet-500/20 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-500 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                 Previous
               </button>
               {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                 const p = Math.max(1, Math.min(page - 2, totalPages - 4)) + i;
                 return (
                   <button key={p} onClick={() => setPage(p)}
-                    className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${p === page ? "bg-violet-600 text-white" : "text-slate-400 dark:text-slate-400 hover:bg-violet-500/20 dark:hover:bg-violet-500/20"}`}>
+                    className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${p === page ? "bg-violet-600 text-white" : "text-gray-500 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"}`}>
                     {p}
                   </button>
                 );
               })}
               <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}
-                className="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 dark:text-slate-400 hover:bg-violet-500/20 dark:hover:bg-violet-500/20 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-500 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                 Next
               </button>
             </div>

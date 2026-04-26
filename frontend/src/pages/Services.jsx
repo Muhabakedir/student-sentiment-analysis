@@ -66,18 +66,18 @@ export default function Services() {
   return (
     <div className="space-y-6">
       {/* Live badge + selector */}
-      <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-5 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
+      <div className="bg-white dark:bg-black rounded-2xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
         <div className="flex flex-wrap items-center gap-3 mb-4">
           <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full
             ${isLive
-              ? "bg-emerald-500/20 dark:bg-emerald-500/20 text-emerald-400 dark:text-emerald-400"
-              : "bg-amber-500/20 dark:bg-amber-500/20 text-amber-400 dark:text-amber-400"
+              ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
+              : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400"
             }`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
             {isLive ? "Live data from BERT model" : "Offline"}
           </span>
         </div>
-        <label className="block text-sm font-medium text-slate-300 dark:text-slate-300 mb-2">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
           Select Service
         </label>
         <Select
@@ -95,25 +95,25 @@ export default function Services() {
           { label: "Negative Feedback", value: `${sentimentCounts.negative} (${pct(sentimentCounts.negative)})`, icon: TrendingDown },
           { label: "Themes Covered", value: themeBreakdown.length, icon: Hash },
         ].map(({ label, value, icon: Icon }) => (
-          <div key={label} className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-5 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
-            <p className="text-sm text-slate-400 dark:text-slate-400">{label}</p>
-            <p className="text-2xl font-bold text-white dark:text-white mt-1">{value}</p>
+          <div key={label} className="bg-white dark:bg-black rounded-2xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+            <p className="text-sm text-gray-500 dark:text-gray-600">{label}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-300 mt-1">{value}</p>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Pie Chart */}
-        <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-5 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
-          <h2 className="text-sm font-semibold text-slate-200 dark:text-slate-200 mb-4">Sentiment Breakdown</h2>
+        <div className="bg-white dark:bg-black rounded-2xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-300 mb-4">Sentiment Breakdown</h2>
           <SentimentPieChart data={sentimentCounts} />
         </div>
 
         {/* Top Negative Themes */}
-        <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-5 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
-          <h2 className="text-sm font-semibold text-slate-200 dark:text-slate-200 mb-4">Top Negative Themes</h2>
+        <div className="bg-white dark:bg-black rounded-2xl p-5 shadow-sm border border-gray-200 dark:border-gray-800">
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-300 mb-4">Top Negative Themes</h2>
           {topNegativeThemes.length === 0 ? (
-            <p className="text-sm text-slate-400 dark:text-slate-400 text-center py-8">No negative feedback for this service.</p>
+            <p className="text-sm text-gray-400 dark:text-gray-600 text-center py-8">No negative feedback for this service.</p>
           ) : (
             <div className="space-y-3">
               {topNegativeThemes.map(([theme, count]) => {
@@ -121,10 +121,10 @@ export default function Services() {
                 return (
                   <div key={theme}>
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="text-slate-300 dark:text-slate-300 font-medium truncate mr-2">{theme}</span>
-                      <span className="text-rose-400 font-semibold shrink-0">{count}</span>
+                      <span className="text-gray-700 dark:text-gray-300 font-medium truncate mr-2">{theme}</span>
+                      <span className="text-rose-600 dark:text-rose-400 font-semibold shrink-0">{count}</span>
                     </div>
-                    <div className="h-2 bg-violet-500/20 dark:bg-violet-500/20 rounded-full overflow-hidden">
+                    <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                       <div className="h-full bg-rose-400 rounded-full transition-all duration-500"
                         style={{ width: `${(count / max) * 100}%` }} />
                     </div>
@@ -137,29 +137,29 @@ export default function Services() {
       </div>
 
       {/* Theme Breakdown Table */}
-      <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
-        <div className="px-5 py-4 border-b border-violet-500/20 dark:border-violet-500/20">
-          <h2 className="text-sm font-semibold text-slate-200 dark:text-slate-200">Theme Breakdown</h2>
+      <div className="bg-white dark:bg-black rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800">
+        <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-800">
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-300">Theme Breakdown</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-left text-xs text-slate-400 dark:text-slate-400 uppercase tracking-wider bg-violet-900/30 dark:bg-violet-900/30">
+              <tr className="text-left text-xs text-gray-500 dark:text-gray-600 uppercase tracking-wider bg-gray-50 dark:bg-gray-900">
                 <th className="px-5 py-3 font-medium">Theme</th>
-                <th className="px-5 py-3 font-medium text-violet-400">Positive</th>
-                <th className="px-5 py-3 font-medium text-cyan-400">Neutral</th>
-                <th className="px-5 py-3 font-medium text-rose-400">Negative</th>
+                <th className="px-5 py-3 font-medium text-emerald-600 dark:text-emerald-400">Positive</th>
+                <th className="px-5 py-3 font-medium text-amber-600 dark:text-amber-400">Neutral</th>
+                <th className="px-5 py-3 font-medium text-rose-600 dark:text-rose-400">Negative</th>
                 <th className="px-5 py-3 font-medium">Total</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-violet-500/10 dark:divide-violet-500/10">
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
               {themeBreakdown.map(row => (
-                <tr key={row.theme} className="hover:bg-violet-500/10 dark:hover:bg-violet-500/10 transition-colors">
-                  <td className="px-5 py-3 text-slate-300 dark:text-slate-300 font-medium">{row.theme}</td>
-                  <td className="px-5 py-3 text-violet-400 dark:text-violet-400">{row.positive}</td>
-                  <td className="px-5 py-3 text-cyan-400 dark:text-cyan-400">{row.neutral}</td>
-                  <td className="px-5 py-3 text-rose-400 dark:text-rose-400">{row.negative}</td>
-                  <td className="px-5 py-3 text-slate-400 dark:text-slate-400 font-semibold">{row.total}</td>
+                <tr key={row.theme} className="hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+                  <td className="px-5 py-3 text-gray-700 dark:text-gray-300 font-medium">{row.theme}</td>
+                  <td className="px-5 py-3 text-emerald-600 dark:text-emerald-400">{row.positive}</td>
+                  <td className="px-5 py-3 text-amber-600 dark:text-amber-400">{row.neutral}</td>
+                  <td className="px-5 py-3 text-rose-600 dark:text-rose-400">{row.negative}</td>
+                  <td className="px-5 py-3 text-gray-500 dark:text-gray-600 font-semibold">{row.total}</td>
                 </tr>
               ))}
             </tbody>

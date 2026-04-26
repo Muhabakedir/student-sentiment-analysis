@@ -3,9 +3,9 @@
  */
 export default function SentimentBadge({ sentiment }) {
   const styles = {
-    positive: "bg-violet-500/20 dark:bg-violet-500/20 text-violet-300 dark:text-violet-400",
-    neutral: "bg-cyan-500/20 dark:bg-cyan-500/20 text-cyan-300 dark:text-cyan-400",
-    negative: "bg-rose-500/20 dark:bg-rose-500/20 text-rose-300 dark:text-rose-400",
+    positive: "bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-400",
+    neutral: "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400",
+    negative: "bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400",
   };
 
   return (
@@ -20,7 +20,7 @@ export default function SentimentBadge({ sentiment }) {
             ? "bg-violet-500"
             : sentiment === "negative"
             ? "bg-rose-500"
-            : "bg-cyan-500"
+            : "bg-amber-500"
         }`}
       />
       {sentiment}

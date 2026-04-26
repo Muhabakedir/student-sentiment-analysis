@@ -25,19 +25,19 @@ export default function Navbar({ onMenuClick }) {
   const handleLogout = () => { logout(); navigate("/"); };
 
   return (
-    <header className="sticky top-0 z-10 bg-gradient-to-r from-indigo-950/95 to-purple-950/95 dark:from-black dark:to-black border-b border-violet-500/20 dark:border-gray-800 px-4 lg:px-6 py-3.5 flex items-center justify-between backdrop-blur-xl">
+    <header className="sticky top-0 z-10 bg-white dark:from-black dark:to-black border-b border-gray-200 dark:border-gray-800 px-4 lg:px-6 py-3.5 flex items-center justify-between">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-2 rounded-xl text-slate-400 hover:bg-violet-500/20 dark:hover:bg-gray-800 dark:text-gray-600 transition-colors"
+          className="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-600 transition-colors"
           aria-label="Open menu"
         >
           <Menu size={20} />
         </button>
         <div>
-          <h1 className="text-base font-semibold text-white dark:text-black leading-tight">{page.title}</h1>
+          <h1 className="text-base font-semibold text-gray-900 dark:text-gray-300 leading-tight">{page.title}</h1>
           {page.sub && (
-            <p className="text-xs text-slate-400 dark:text-gray-600 hidden sm:block mt-0.5">{page.sub}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-600 hidden sm:block mt-0.5">{page.sub}</p>
           )}
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function Navbar({ onMenuClick }) {
           className={`p-2 rounded-xl border transition-all
             ${darkMode
               ? "bg-gray-800 border-gray-700 text-gray-600 hover:bg-gray-700"
-              : "bg-violet-900/30 border-violet-500/30 text-slate-300 hover:bg-violet-500/20"
+              : "bg-gray-100 border-gray-200 text-gray-600 hover:bg-gray-200"
             }`}
           title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           aria-label="Toggle theme"
@@ -58,17 +58,17 @@ export default function Navbar({ onMenuClick }) {
         </button>
 
         {/* Admin profile + logout */}
-        <div className="flex items-center gap-2 pl-2 border-l border-violet-500/20 dark:border-gray-800 ml-1">
+        <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-800 ml-1">
           <div className="hidden sm:block text-right">
             <div className="flex items-center gap-1.5 justify-end">
-              <p className="text-xs font-medium text-slate-300 dark:text-gray-600 leading-tight">{email || "Admin"}</p>
+              <p className="text-xs font-medium text-gray-700 dark:text-gray-600 leading-tight">{email || "Admin"}</p>
               {isSuperAdmin && (
                 <span title="Superadmin">
                   <Crown size={12} className="text-yellow-500" />
                 </span>
               )}
             </div>
-            <p className="text-xs text-slate-400 dark:text-gray-700">
+            <p className="text-xs text-gray-500 dark:text-gray-700">
               {isSuperAdmin ? "Superadmin" : "Administrator"}
             </p>
           </div>
@@ -77,7 +77,7 @@ export default function Navbar({ onMenuClick }) {
           </div>
           <button
             onClick={handleLogout}
-            className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 dark:hover:bg-gray-800 dark:text-gray-600 transition-colors"
+            className="p-2 rounded-xl text-gray-400 hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-gray-800 dark:text-gray-600 transition-colors"
             title="Sign out"
             aria-label="Sign out"
           >
