@@ -55,9 +55,9 @@ const RULES = [
 ];
 
 const PRIORITY_CONFIG = {
-  critical: { label: "Critical", icon: AlertTriangle, bg: "bg-red-50 dark:bg-red-900/20", border: "border-red-200 dark:border-red-800", badge: "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400", iconColor: "text-red-500" },
-  high:     { label: "High Priority", icon: AlertTriangle, bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-200 dark:border-orange-800", badge: "bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-400", iconColor: "text-orange-500" },
-  medium:   { label: "Medium", icon: Info, bg: "bg-yellow-50 dark:bg-yellow-900/20", border: "border-yellow-200 dark:border-yellow-800", badge: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400", iconColor: "text-yellow-500" },
+  critical: { label: "Critical", icon: AlertTriangle, bg: "bg-rose-500/15 dark:bg-rose-500/15", border: "border-rose-500/30 dark:border-rose-500/30", badge: "bg-rose-500/20 dark:bg-rose-500/20 text-rose-400 dark:text-rose-400", iconColor: "text-rose-400" },
+  high:     { label: "High Priority", icon: AlertTriangle, bg: "bg-orange-500/15 dark:bg-orange-500/15", border: "border-orange-500/30 dark:border-orange-500/30", badge: "bg-orange-500/20 dark:bg-orange-500/20 text-orange-400 dark:text-orange-400", iconColor: "text-orange-400" },
+  medium:   { label: "Medium", icon: Info, bg: "bg-amber-500/15 dark:bg-amber-500/15", border: "border-amber-500/30 dark:border-amber-500/30", badge: "bg-amber-500/20 dark:bg-amber-500/20 text-amber-400 dark:text-amber-400", iconColor: "text-amber-400" },
 };
 
 export default function Recommendations() {
@@ -85,34 +85,34 @@ export default function Recommendations() {
     <div className="space-y-6">
       {/* Summary */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-800">
+        <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-5 shadow-lg border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
           <div className="flex items-center gap-2 mb-1">
-            <p className="text-sm text-gray-500 dark:text-gray-400">Total Recommendations</p>
+            <p className="text-sm text-slate-400 dark:text-slate-400">Total Recommendations</p>
             <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full
               ${isLive
-                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-                : "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400"
+                ? "bg-emerald-500/20 dark:bg-emerald-500/20 text-emerald-400 dark:text-emerald-400"
+                : "bg-amber-500/20 dark:bg-amber-500/20 text-amber-400 dark:text-amber-400"
               }`}>
-              <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-green-500 animate-pulse" : "bg-yellow-500"}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}`} />
               {isLive ? "Live" : "Offline"}
             </span>
           </div>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">{activeRecs.length}</p>
+          <p className="text-2xl font-bold text-white dark:text-white">{activeRecs.length}</p>
         </div>
-        <div className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-5 border border-red-100 dark:border-red-800">
-          <p className="text-sm text-red-500 dark:text-red-400">Critical Issues</p>
-          <p className="text-2xl font-bold text-red-700 dark:text-red-300">{criticalCount}</p>
+        <div className="bg-rose-500/15 dark:bg-rose-500/15 rounded-2xl p-5 border border-rose-500/30 dark:border-rose-500/30">
+          <p className="text-sm text-rose-400 dark:text-rose-400">Critical Issues</p>
+          <p className="text-2xl font-bold text-rose-300 dark:text-rose-300">{criticalCount}</p>
         </div>
-        <div className="bg-orange-50 dark:bg-orange-900/20 rounded-2xl p-5 border border-orange-100 dark:border-orange-800">
-          <p className="text-sm text-orange-500 dark:text-orange-400">High Priority</p>
-          <p className="text-2xl font-bold text-orange-700 dark:text-orange-300">{highCount}</p>
+        <div className="bg-orange-500/15 dark:bg-orange-500/15 rounded-2xl p-5 border border-orange-500/30 dark:border-orange-500/30">
+          <p className="text-sm text-orange-400 dark:text-orange-400">High Priority</p>
+          <p className="text-2xl font-bold text-orange-300 dark:text-orange-300">{highCount}</p>
         </div>
       </div>
 
       {/* Info */}
-      <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 rounded-2xl px-5 py-4 flex gap-3">
-        <Info size={16} className="text-indigo-500 shrink-0 mt-0.5" />
-        <p className="text-sm text-indigo-700 dark:text-indigo-300">
+      <div className="bg-violet-500/15 dark:bg-violet-500/15 border border-violet-500/30 dark:border-violet-500/30 rounded-2xl px-5 py-4 flex gap-3">
+        <Info size={16} className="text-violet-400 shrink-0 mt-0.5" />
+        <p className="text-sm text-violet-300 dark:text-violet-300">
           Recommendations are generated from {isLive ? "live BERT-analyzed" : "submitted"} feedback data.
           Thresholds trigger when a theme receives 3+ negative responses.
         </p>
@@ -122,14 +122,14 @@ export default function Recommendations() {
       {loading ? (
         <div className="space-y-3">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 bg-gray-100 dark:bg-gray-800 rounded-2xl animate-pulse" />
+            <div key={i} className="h-24 bg-violet-500/20 dark:bg-violet-500/20 rounded-2xl animate-pulse" />
           ))}
         </div>
       ) : activeRecs.length === 0 ? (
-        <div className="bg-white dark:bg-gray-900 rounded-2xl p-10 text-center border border-gray-100 dark:border-gray-800">
-          <CheckCircle size={32} className="mx-auto text-green-500 mb-3" />
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-300">No issues detected</p>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">All themes are below the negative feedback threshold.</p>
+        <div className="bg-gradient-to-br from-violet-900/40 to-indigo-900/30 dark:from-violet-900/40 dark:to-indigo-900/30 rounded-2xl p-10 text-center border border-violet-500/20 dark:border-violet-500/20 backdrop-blur-xl">
+          <CheckCircle size={32} className="mx-auto text-emerald-400 mb-3" />
+          <p className="text-sm font-medium text-slate-200 dark:text-slate-200">No issues detected</p>
+          <p className="text-xs text-slate-400 dark:text-slate-400 mt-1">All themes are below the negative feedback threshold.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -139,19 +139,19 @@ export default function Recommendations() {
             return (
               <div key={i} className={`rounded-2xl border p-5 ${config.bg} ${config.border} hover:shadow-md transition-all`}>
                 <div className="flex flex-col sm:flex-row sm:items-start gap-3">
-                  <div className={`p-2 rounded-xl bg-white dark:bg-gray-900 shrink-0 ${config.iconColor}`}>
+                  <div className={`p-2 rounded-xl bg-violet-900/40 dark:bg-violet-900/40 shrink-0 ${config.iconColor}`}>
                     <Icon size={18} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                       <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${config.badge}`}>{config.label}</span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 px-2 py-0.5 rounded-full border border-gray-200 dark:border-gray-700">{rec.theme}</span>
-                      <span className="text-xs text-red-500 dark:text-red-400">{rec.count} negative responses</span>
+                      <span className="text-xs text-slate-400 dark:text-slate-400 bg-violet-900/40 dark:bg-violet-900/40 px-2 py-0.5 rounded-full border border-violet-500/20 dark:border-violet-500/20">{rec.theme}</span>
+                      <span className="text-xs text-rose-400 dark:text-rose-400">{rec.count} negative responses</span>
                     </div>
-                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">{rec.recommendation}</p>
+                    <p className="text-sm font-medium text-slate-200 dark:text-slate-200 mb-1">{rec.recommendation}</p>
                     <div className="flex items-start gap-1.5 mt-2">
-                      <ArrowRight size={13} className="text-gray-400 shrink-0 mt-0.5" />
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{rec.action}</p>
+                      <ArrowRight size={13} className="text-slate-400 shrink-0 mt-0.5" />
+                      <p className="text-xs text-slate-400 dark:text-slate-400">{rec.action}</p>
                     </div>
                   </div>
                 </div>

@@ -35,15 +35,15 @@ export default function FeedbackBarChart({ data }) {
         margin={{ top: 5, right: 10, left: -10, bottom: 5 }}
         barSize={18}
       >
-        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
+        <CartesianGrid strokeDasharray="3 3" stroke="rgba(139,92,246,0.15)" vertical={false} />
         <XAxis
           dataKey="name"
-          tick={{ fontSize: 11, fill: "#9ca3af" }}
+          tick={{ fontSize: 11, fill: "#94a3b8" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fontSize: 11, fill: "#9ca3af" }}
+          tick={{ fontSize: 11, fill: "#94a3b8" }}
           axisLine={false}
           tickLine={false}
         />
@@ -64,9 +64,9 @@ export default function FeedbackBarChart({ data }) {
             </span>
           )}
         />
-        <Bar dataKey="positive" name="Positive" fill="#22c55e" radius={[4, 4, 0, 0]} />
-        <Bar dataKey="neutral" name="Neutral" fill="#eab308" radius={[4, 4, 0, 0]} />
-        <Bar dataKey="negative" name="Negative" fill="#ef4444" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="positive" name="Positive" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="neutral" name="Neutral" fill="#06b6d4" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="negative" name="Negative" fill="#f43f5e" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

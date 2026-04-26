@@ -8,9 +8,9 @@ import {
 } from "recharts";
 
 const COLORS = {
-  positive: "#22c55e",
-  neutral: "#eab308",
-  negative: "#ef4444",
+  positive: "#8b5cf6",
+  neutral: "#06b6d4",
+  negative: "#f43f5e",
 };
 
 const RADIAN = Math.PI / 180;

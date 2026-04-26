@@ -24,19 +24,19 @@ export default function Navbar({ onMenuClick }) {
   const handleLogout = () => { logout(); navigate("/"); };
 
   return (
-    <header className="sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 lg:px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-10 bg-gradient-to-r from-indigo-950/95 to-purple-950/95 dark:from-indigo-950/95 dark:to-purple-950/95 border-b border-violet-500/20 dark:border-violet-500/20 px-4 lg:px-6 py-3.5 flex items-center justify-between backdrop-blur-xl">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400 transition-colors"
+          className="lg:hidden p-2 rounded-xl text-slate-400 hover:bg-violet-500/20 dark:hover:bg-violet-500/20 dark:text-slate-400 transition-colors"
           aria-label="Open menu"
         >
           <Menu size={20} />
         </button>
         <div>
-          <h1 className="text-base font-semibold text-gray-900 dark:text-white leading-tight">{page.title}</h1>
+          <h1 className="text-base font-semibold text-white dark:text-white leading-tight">{page.title}</h1>
           {page.sub && (
-            <p className="text-xs text-gray-400 dark:text-gray-500 hidden sm:block mt-0.5">{page.sub}</p>
+            <p className="text-xs text-slate-400 dark:text-slate-400 hidden sm:block mt-0.5">{page.sub}</p>
           )}
         </div>
       </div>
@@ -47,8 +47,8 @@ export default function Navbar({ onMenuClick }) {
           onClick={() => setDarkMode(!darkMode)}
           className={`p-2 rounded-xl border transition-all
             ${darkMode
-              ? "bg-gray-800 border-gray-700 text-yellow-400 hover:bg-gray-700"
-              : "bg-gray-100 border-gray-200 text-gray-600 hover:bg-gray-200"
+              ? "bg-violet-900/40 border-violet-500/30 text-yellow-400 hover:bg-violet-500/20"
+              : "bg-violet-900/30 border-violet-500/30 text-slate-300 hover:bg-violet-500/20"
             }`}
           title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           aria-label="Toggle theme"
@@ -57,26 +57,26 @@ export default function Navbar({ onMenuClick }) {
         </button>
 
         {/* Admin profile + logout */}
-        <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-700 ml-1">
+        <div className="flex items-center gap-2 pl-2 border-l border-violet-500/20 dark:border-violet-500/20 ml-1">
           <div className="hidden sm:block text-right">
             <div className="flex items-center gap-1.5 justify-end">
-              <p className="text-xs font-medium text-gray-700 dark:text-gray-300 leading-tight">{email || "Admin"}</p>
+              <p className="text-xs font-medium text-slate-300 dark:text-slate-300 leading-tight">{email || "Admin"}</p>
               {isSuperAdmin && (
                 <span title="Superadmin">
                   <Crown size={12} className="text-yellow-500" />
                 </span>
               )}
             </div>
-            <p className="text-xs text-gray-400 dark:text-gray-500">
+            <p className="text-xs text-slate-400 dark:text-slate-400">
               {isSuperAdmin ? "Superadmin" : "Administrator"}
             </p>
           </div>
-          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">
+          <div className="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold">
             {initials}
           </div>
           <button
             onClick={handleLogout}
-            className="p-2 rounded-xl text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            className="p-2 rounded-xl text-slate-400 hover:text-rose-400 hover:bg-rose-500/20 dark:hover:bg-rose-500/20 transition-colors"
             title="Sign out"
             aria-label="Sign out"
           >

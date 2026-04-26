@@ -3,9 +3,9 @@
  */
 export default function SentimentBadge({ sentiment }) {
   const styles = {
-    positive: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400",
-    neutral: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400",
-    negative: "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400",
+    positive: "bg-violet-500/20 dark:bg-violet-500/20 text-violet-300 dark:text-violet-400",
+    neutral: "bg-cyan-500/20 dark:bg-cyan-500/20 text-cyan-300 dark:text-cyan-400",
+    negative: "bg-rose-500/20 dark:bg-rose-500/20 text-rose-300 dark:text-rose-400",
   };
 
   return (
@@ -17,10 +17,10 @@ export default function SentimentBadge({ sentiment }) {
       <span
         className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
           sentiment === "positive"
-            ? "bg-green-500"
+            ? "bg-violet-500"
             : sentiment === "negative"
-            ? "bg-red-500"
-            : "bg-yellow-500"
+            ? "bg-rose-500"
+            : "bg-cyan-500"
         }`}
       />
       {sentiment}
