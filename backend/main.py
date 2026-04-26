@@ -56,7 +56,15 @@ if engine:
     try:
         models.Base.metadata.create_all(bind=engine)
         print("✅ Database tables created successfully")
-        # Migration: add optional email column to feedback table if missing
+    except Exception as e:
+        print(f"❌ Failed to create tables: {e}")
+        print("⚠️ Continuing without database connection...")
+else:
+    print("⚠️ Database not configured - skipping table creation")
+
+# Migration: add optional email column to feedback table if missing (runs every startup)
+if engine:
+    try:
         with engine.connect() as conn:
             from sqlalchemy import inspect as sa_inspect
             inspector = sa_inspect(engine)
@@ -66,10 +74,7 @@ if engine:
                 conn.commit()
                 print("✅ Migration: added 'email' column to feedback table")
     except Exception as e:
-        print(f"❌ Failed to create tables: {e}")
-        print("⚠️ Continuing without database connection...")
-else:
-    print("⚠️ Database not configured - skipping table creation")
+        print(f"⚠️ Migration failed: {e}")
 
 def seed_admin():
     """Create default superadmin if none exists."""
