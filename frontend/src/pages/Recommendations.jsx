@@ -118,7 +118,7 @@ export default function Recommendations() {
   return (
     <div className="space-y-6 print:bg-white print:text-black">
       {/* ── Executive Header ─────────────────────────────────────── */}
-      <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden shadow-sm">
         <div className="bg-gradient-to-r from-violet-600 to-indigo-600 dark:from-gray-900 dark:to-gray-900 px-8 py-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
@@ -143,7 +143,7 @@ export default function Recommendations() {
             </div>
           </div>
         </div>
-        <div className="px-8 py-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-500 dark:text-gray-600 border-b border-gray-100 dark:border-gray-800">
+        <div className="px-8 py-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-500 dark:text-gray-500 border-b border-gray-100 dark:border-gray-800">
           <span className="flex items-center gap-1.5"><Clock size={12} /> {reportDate} at {reportTime}</span>
           <span className="flex items-center gap-1.5"><BarChart3 size={12} /> {stats.total || 0} total feedback analyzed</span>
           <span className="flex items-center gap-1.5"><AlertTriangle size={12} /> {totalNegative} negative responses detected</span>
@@ -154,54 +154,54 @@ export default function Recommendations() {
       {/* ── Risk Score & KPI Summary ─────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Risk Score */}
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm col-span-1 sm:col-span-2 lg:col-span-1">
-          <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wider mb-3">Institutional Risk Score</p>
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 shadow-sm col-span-1 sm:col-span-2 lg:col-span-1">
+          <p className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide mb-3">Institutional Risk Score</p>
           <div className="flex items-end gap-3">
             <p className={`text-4xl font-bold ${riskScore >= 60 ? "text-rose-600 dark:text-rose-400" : riskScore >= 30 ? "text-orange-600 dark:text-orange-400" : "text-emerald-600 dark:text-emerald-400"}`}>
               {riskScore}
             </p>
-            <p className="text-xs text-gray-400 dark:text-gray-600 pb-1">/100</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500 pb-1">/100</p>
           </div>
           <div className="mt-3 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
             <div className={`h-full rounded-full transition-all duration-500 ${riskScore >= 60 ? "bg-rose-500" : riskScore >= 30 ? "bg-orange-500" : "bg-emerald-500"}`} style={{ width: `${riskScore}%` }} />
           </div>
-          <p className="text-xs text-gray-400 dark:text-gray-600 mt-2">{riskScore >= 60 ? "Immediate action required" : riskScore >= 30 ? "Action recommended" : "Within acceptable range"}</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">{riskScore >= 60 ? "Immediate action required" : riskScore >= 30 ? "Action recommended" : "Within acceptable range"}</p>
         </div>
 
         {/* Critical */}
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-2 h-2 rounded-full bg-rose-500" />
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wider">Critical</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide">Critical</p>
           </div>
           <p className="text-3xl font-bold text-rose-600 dark:text-rose-400">{criticalCount}</p>
-          <p className="text-xs text-gray-400 dark:text-gray-600 mt-1">Requires immediate intervention</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Requires immediate intervention</p>
         </div>
 
         {/* High */}
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-2 h-2 rounded-full bg-orange-500" />
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wider">High Priority</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide">High Priority</p>
           </div>
           <p className="text-3xl font-bold text-orange-600 dark:text-orange-400">{highCount}</p>
-          <p className="text-xs text-gray-400 dark:text-gray-600 mt-1">Action within 1–3 months</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Action within 1–3 months</p>
         </div>
 
         {/* Medium */}
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-2 h-2 rounded-full bg-amber-500" />
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wider">Medium</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide">Medium</p>
           </div>
           <p className="text-3xl font-bold text-amber-600 dark:text-amber-400">{mediumCount}</p>
-          <p className="text-xs text-gray-400 dark:text-gray-600 mt-1">Plan within 3–6 months</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Plan within 3–6 months</p>
         </div>
       </div>
 
       {/* ── Priority Filter ──────────────────────────────────────── */}
       <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wider mr-1">Filter:</span>
+        <span className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide mr-1">Filter:</span>
         {["all", "critical", "high", "medium"].map(p => (
           <button
             key={p}
@@ -209,27 +209,27 @@ export default function Recommendations() {
             className={`text-xs font-medium px-3 py-1.5 rounded-lg border transition-all
               ${filterPriority === p
                 ? "bg-violet-100 text-violet-700 border-violet-300 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700"
-                : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 dark:bg-black dark:text-gray-600 dark:border-gray-800 dark:hover:bg-gray-900"
+                : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-500 dark:border-gray-700 dark:hover:bg-gray-800"
               }`}
           >
             {p === "all" ? "All Priorities" : p.charAt(0).toUpperCase() + p.slice(1)}
           </button>
         ))}
-        <span className="text-xs text-gray-400 dark:text-gray-600 ml-2">{Object.values(groupedRecs).flat().length} recommendations</span>
+        <span className="text-xs text-gray-400 dark:text-gray-500 ml-2">{Object.values(groupedRecs).flat().length} recommendations</span>
       </div>
 
       {/* ── Recommendations by Service ───────────────────────────── */}
       {loading ? (
         <div className="space-y-3">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-24 bg-gray-100 dark:bg-gray-900 rounded-2xl animate-pulse" />
+            <div key={i} className="h-24 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />
           ))}
         </div>
       ) : activeRecs.length === 0 ? (
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl p-12 text-center shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-12 text-center shadow-sm">
           <CheckCircle size={40} className="mx-auto text-emerald-500 mb-4" />
           <p className="text-lg font-semibold text-gray-900 dark:text-gray-300">All Systems Performing Within Acceptable Thresholds</p>
-          <p className="text-sm text-gray-500 dark:text-gray-600 mt-2 max-w-md mx-auto">
+          <p className="text-sm text-gray-500 dark:text-gray-500 mt-2 max-w-md mx-auto">
             No themes have exceeded the negative feedback threshold of 3 responses. Continue monitoring to detect emerging issues early.
           </p>
         </div>
@@ -242,19 +242,19 @@ export default function Recommendations() {
             const serviceHigh = recs.filter(r => r.priority === "high").length;
 
             return (
-              <div key={service} className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm">
+              <div key={service} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden shadow-sm">
                 {/* Service Header */}
                 <button
                   onClick={() => toggleGroup(service)}
-                  className="w-full flex items-center justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+                  className="w-full flex items-center justify-between px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-violet-100 dark:bg-gray-800 flex items-center justify-center">
-                      <ServiceIcon size={16} className="text-violet-600 dark:text-gray-400" />
+                    <div className="w-8 h-8 rounded-lg bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center">
+                      <ServiceIcon size={16} className="text-violet-600 dark:text-violet-400" />
                     </div>
                     <div className="text-left">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-300">{service}</h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-600">{recs.length} recommendation{recs.length !== 1 ? "s" : ""} · {recs.reduce((a, r) => a + r.count, 0)} negative responses</p>
+                      <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-200">{service}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-500">{recs.length} recommendation{recs.length !== 1 ? "s" : ""} · {recs.reduce((a, r) => a + r.count, 0)} negative responses</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
@@ -284,29 +284,29 @@ export default function Recommendations() {
                               </div>
                               <div>
                                 <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded-full ${config.badge} mb-1`}>{config.label}</span>
-                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-300">{rec.theme}</p>
-                                <p className="text-xs text-gray-500 dark:text-gray-600 mt-0.5">{rec.count} negative response{rec.count !== 1 ? "s" : ""}</p>
+                                <p className="text-sm font-semibold text-gray-900 dark:text-gray-200">{rec.theme}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">{rec.count} negative response{rec.count !== 1 ? "s" : ""}</p>
                               </div>
                             </div>
 
                             {/* Right: Recommendation + Action */}
                             <div className="flex-1 min-w-0">
-                              <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wider mb-1">Recommendation</p>
+                              <p className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide mb-1">Recommendation</p>
                               <p className="text-sm text-gray-800 dark:text-gray-300 leading-relaxed">{rec.recommendation}</p>
 
-                              <div className="mt-3 bg-white dark:bg-gray-900 rounded-xl p-3 border border-gray-200 dark:border-gray-800">
+                              <div className="mt-3 bg-white dark:bg-gray-900 rounded-lg p-3 border border-gray-200 dark:border-gray-800">
                                 <div className="flex items-center gap-2 mb-1.5">
                                   <ArrowRight size={12} className="text-violet-500 dark:text-gray-500" />
-                                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-600 uppercase tracking-wider">Action Step</p>
+                                  <p className="text-xs font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wide">Action Step</p>
                                 </div>
                                 <p className="text-sm text-gray-700 dark:text-gray-400 leading-relaxed">{rec.action}</p>
                               </div>
 
                               <div className="flex items-center gap-4 mt-3">
-                                <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-600">
+                                <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-500">
                                   <Clock size={11} /> {rec.timeline}
                                 </span>
-                                <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-600">
+                                <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-500">
                                   <TrendingUp size={11} /> Impact: {rec.impact}
                                 </span>
                               </div>
@@ -324,12 +324,12 @@ export default function Recommendations() {
       )}
 
       {/* ── Methodology Footer ────────────────────────────────────── */}
-      <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-3">
           <Shield size={16} className="text-violet-600 dark:text-gray-500" />
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-300">Methodology & Disclaimer</h3>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-200">Methodology & Disclaimer</h3>
         </div>
-        <div className="text-xs text-gray-500 dark:text-gray-600 space-y-2 leading-relaxed">
+        <div className="text-xs text-gray-500 dark:text-gray-500 space-y-2 leading-relaxed">
           <p>
             This report is generated from {isLive ? "live BERT-analyzed" : "submitted"} student feedback data using the
             <span className="font-medium text-gray-700 dark:text-gray-400"> {isLive ? "muhabakedir880/student-sentiment-analysis" : "lexicon-based fallback"} </span>

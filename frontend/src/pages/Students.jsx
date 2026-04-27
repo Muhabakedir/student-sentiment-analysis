@@ -48,58 +48,58 @@ export default function Students() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-black mb-6">Students</h1>
+      <h1 className="text-sm font-semibold text-gray-900 dark:text-gray-200 mb-4">Students</h1>
 
       {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+        <div className="mb-4 p-4 bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 rounded-lg text-rose-700 dark:text-rose-400">
           {error}
         </div>
       )}
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-violet-100 dark:bg-gray-800 flex items-center justify-center">
-              <Users className="text-violet-600 dark:text-gray-600" size={20} />
+            <div className="w-10 h-10 rounded-lg bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center">
+              <Users className="text-violet-600 dark:text-violet-400" size={20} />
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-600">Registered Students</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-black">{totalStudents}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Registered Students</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalStudents}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-gray-800 flex items-center justify-center">
-              <Shield className="text-blue-600 dark:text-gray-600" size={20} />
+            <div className="w-10 h-10 rounded-lg bg-sky-100 dark:bg-sky-900/40 flex items-center justify-center">
+              <Shield className="text-sky-600 dark:text-sky-400" size={20} />
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-600">Active Students</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-black">{activeStudents}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Active Students</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{activeStudents}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-gray-800 flex items-center justify-center">
-              <UserCheck className="text-green-600 dark:text-gray-600" size={20} />
+            <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
+              <UserCheck className="text-emerald-600 dark:text-emerald-400" size={20} />
             </div>
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-600">Students Gave Feedback</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-black">{feedbackCount}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Students Gave Feedback</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{feedbackCount}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Privacy notice */}
-      <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-5">
         <div className="flex items-center gap-3 mb-4">
-          <Shield className="text-violet-600 dark:text-gray-600" size={20} />
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-black">Privacy Protected</h2>
+          <Shield className="text-violet-600 dark:text-gray-500" size={18} />
+          <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-200">Privacy Protected</h2>
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-600">
+        <p className="text-sm text-gray-500 dark:text-gray-500">
           Student identities are kept anonymous. No personal information such as names, emails, or student IDs are displayed to protect privacy.
           Feedback submissions are linked only via hashed session identifiers.
         </p>
