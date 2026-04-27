@@ -5,14 +5,22 @@ import {
   Tag, Lightbulb, GraduationCap, X, Users,
 } from "lucide-react";
 
-const navItems = [
-  { to: "/dashboard",                 label: "Dashboard",       icon: LayoutDashboard },
-  { to: "/dashboard/services",        label: "Services",        icon: Server },
-  { to: "/dashboard/feedback",        label: "Feedback",        icon: MessageSquare },
-  { to: "/dashboard/themes",          label: "Themes",          icon: Tag },
-  { to: "/dashboard/recommendations", label: "Recommendations", icon: Lightbulb },
-  { to: "/dashboard/students",        label: "Students",        icon: Users },
-];
+const navItems = {
+  overview: [
+    { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  ],
+  analytics: [
+    { to: "/dashboard/services", label: "Services", icon: Server },
+    { to: "/dashboard/themes", label: "Themes", icon: Tag },
+  ],
+  feedback: [
+    { to: "/dashboard/feedback", label: "Feedback", icon: MessageSquare },
+    { to: "/dashboard/recommendations", label: "Recommendations", icon: Lightbulb },
+  ],
+  people: [
+    { to: "/dashboard/students", label: "Students", icon: Users },
+  ],
+};
 
 export default function Sidebar({ open, onClose }) {
   const { isSuperAdmin } = useAuth();
@@ -49,10 +57,11 @@ export default function Sidebar({ open, onClose }) {
 
         {/* Navigation */}
         <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
+          {/* Overview */}
           <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider px-3 mb-2">
-            Analytics
+            Overview
           </p>
-          {navItems.map(({ to, label, icon: Icon }) => (
+          {navItems.overview.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
@@ -71,6 +80,79 @@ export default function Sidebar({ open, onClose }) {
             </NavLink>
           ))}
 
+          {/* Analytics */}
+          <div className="pt-4 mt-2 border-t border-gray-200 dark:border-gray-800">
+            <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider px-3 mb-2">
+              Analytics
+            </p>
+            {navItems.analytics.map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150
+                  ${isActive
+                    ? "bg-violet-50 text-violet-700 dark:bg-gray-800 dark:text-gray-300"
+                    : "text-gray-600 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300"
+                  }`
+                }
+              >
+                <Icon size={17} />
+                {label}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* Feedback */}
+          <div className="pt-4 mt-2 border-t border-gray-200 dark:border-gray-800">
+            <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider px-3 mb-2">
+              Feedback
+            </p>
+            {navItems.feedback.map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150
+                  ${isActive
+                    ? "bg-violet-50 text-violet-700 dark:bg-gray-800 dark:text-gray-300"
+                    : "text-gray-600 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300"
+                  }`
+                }
+              >
+                <Icon size={17} />
+                {label}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* People */}
+          <div className="pt-4 mt-2 border-t border-gray-200 dark:border-gray-800">
+            <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider px-3 mb-2">
+              People
+            </p>
+            {navItems.people.map(({ to, label, icon: Icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150
+                  ${isActive
+                    ? "bg-violet-50 text-violet-700 dark:bg-gray-800 dark:text-gray-300"
+                    : "text-gray-600 dark:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-300"
+                  }`
+                }
+              >
+                <Icon size={17} />
+                {label}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* Administration */}
           <div className="pt-4 mt-2 border-t border-gray-200 dark:border-gray-800">
             <p className="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider px-3 mb-2">
               Administration

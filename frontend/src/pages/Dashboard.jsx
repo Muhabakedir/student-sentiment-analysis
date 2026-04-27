@@ -63,7 +63,7 @@ export default function Dashboard() {
   }
 
   return (
-    <motion.div 
+    <motion.div
       className="p-4 sm:p-6 lg:p-8"
       variants={containerVariants}
       initial="hidden"
@@ -71,22 +71,22 @@ export default function Dashboard() {
     >
 
       <div className="relative z-10 space-y-6 max-w-7xl mx-auto">
-        {/* Top bar */}
-        <motion.div 
+        {/* Header with status and date filter */}
+        <motion.div
           variants={itemVariants}
           className="flex flex-wrap items-center justify-between gap-4 bg-white dark:bg-black rounded-2xl px-6 py-4 shadow-sm border border-gray-200 dark:border-gray-800"
         >
           <div className="flex items-center gap-3">
             <div className={`flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full
               ${isLive
-                ? "bg-green-500/30 dark:bg-green-900/30 text-green-400 dark:text-green-400 border border-green-500/50"
-                : "bg-amber-500/30 dark:bg-amber-900/30 text-amber-400 dark:text-amber-400 border border-amber-500/50"
+                ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
+                : "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800"
               }`}>
-              <span className={`w-2 h-2 rounded-full ${isLive ? "bg-green-400 animate-pulse" : "bg-amber-400"}`} />
+              <span className={`w-2 h-2 rounded-full ${isLive ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
               {isLive ? "Live — BERT model active" : "Offline"}
             </div>
             {isLive && (
-              <span className="text-xs text-gray-500 dark:text-gray-600 bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-800">
+              <span className="text-xs text-gray-600 dark:text-gray-500 bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-800">
                 {stats.total} total submissions
               </span>
             )}
@@ -94,47 +94,46 @@ export default function Dashboard() {
           <DateRangePicker dateFrom={dates.dateFrom} dateTo={dates.dateTo} onChange={setDates} />
         </motion.div>
 
-        {/* KPI Cards */}
-        <motion.div 
-          variants={itemVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4"
-        >
-          <StatCard
-            label="Total Feedback"
-            value={stats.total.toLocaleString()}
-            icon={MessageSquare}
-            color="indigo"
-            sub="All services combined"
-          />
-          <StatCard
-            label="Positive"
-            value={pct(stats.positive)}
-            icon={ThumbsUp}
-            color="green"
-            sub={`${stats.positive.toLocaleString()} responses`}
-          />
-          <StatCard
-            label="Neutral"
-            value={pct(stats.neutral)}
-            icon={Minus}
-            color="yellow"
-            sub={`${stats.neutral.toLocaleString()} responses`}
-          />
-          <StatCard
-            label="Negative"
-            value={pct(stats.negative)}
-            icon={ThumbsDown}
-            color="red"
-            sub={`${stats.negative.toLocaleString()} responses`}
-          />
+        {/* Overview Section */}
+        <motion.div variants={itemVariants}>
+          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider mb-3">Overview</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <StatCard
+              label="Total Feedback"
+              value={stats.total.toLocaleString()}
+              icon={MessageSquare}
+              color="indigo"
+              sub="All services combined"
+            />
+            <StatCard
+              label="Positive"
+              value={pct(stats.positive)}
+              icon={ThumbsUp}
+              color="green"
+              sub={`${stats.positive.toLocaleString()} responses`}
+            />
+            <StatCard
+              label="Neutral"
+              value={pct(stats.neutral)}
+              icon={Minus}
+              color="yellow"
+              sub={`${stats.neutral.toLocaleString()} responses`}
+            />
+            <StatCard
+              label="Negative"
+              value={pct(stats.negative)}
+              icon={ThumbsDown}
+              color="red"
+              sub={`${stats.negative.toLocaleString()} responses`}
+            />
+          </div>
         </motion.div>
 
-        {/* Highlight banners */}
+        {/* Key Insights Section */}
         {(mostPositiveService || mostNegativeService || mostReportedTheme) && (
-          <motion.div 
-            variants={itemVariants}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-4"
-          >
+          <motion.div variants={itemVariants}>
+            <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider mb-3">Key Insights</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {mostPositiveService && mostPositiveService.positive > 0 && (
               <motion.div 
                 whileHover={{ y: -4 }}
@@ -198,14 +197,14 @@ export default function Dashboard() {
                 </div>
               </motion.div>
             )}
+          </div>
           </motion.div>
         )}
 
-        {/* Charts */}
-        <motion.div 
-          variants={itemVariants}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
-        >
+        {/* Charts Section */}
+        <motion.div variants={itemVariants}>
+          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider mb-3">Charts</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <motion.div 
             whileHover={{ y: -4 }}
             className="bg-white dark:bg-black rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800"
@@ -231,13 +230,16 @@ export default function Dashboard() {
             </div>
             <FeedbackBarChart data={serviceStats} />
           </motion.div>
+          </div>
         </motion.div>
 
-        {/* Recent Feedback */}
-        <motion.div 
-          variants={itemVariants}
-          className="bg-white dark:bg-black rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden"
-        >
+        {/* Recent Feedback Section */}
+        <motion.div variants={itemVariants}>
+          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider mb-3">Recent Feedback</h2>
+          <motion.div
+            variants={itemVariants}
+            className="bg-white dark:bg-black rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden"
+          >
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-300 flex items-center gap-2">
@@ -288,6 +290,7 @@ export default function Dashboard() {
               ))
             )}
           </div>
+          </motion.div>
         </motion.div>
       </div>
     </motion.div>
