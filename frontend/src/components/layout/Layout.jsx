@@ -7,7 +7,7 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:from-black dark:to-black">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="lg:ml-64 flex flex-col min-h-screen overflow-hidden">
         <Navbar onMenuClick={() => setSidebarOpen(true)} />

@@ -10,7 +10,7 @@ export default function DateRangePicker({ dateFrom, dateTo, onChange }) {
           type="date"
           value={dateFrom}
           onChange={e => onChange({ dateFrom: e.target.value, dateTo })}
-          className="px-3 py-2 rounded-xl text-sm border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
+          className="px-3 py-1.5 rounded-lg text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
         />
       </div>
       <div className="flex items-center gap-1.5">
@@ -19,7 +19,7 @@ export default function DateRangePicker({ dateFrom, dateTo, onChange }) {
           type="date"
           value={dateTo}
           onChange={e => onChange({ dateFrom, dateTo: e.target.value })}
-          className="px-3 py-2 rounded-xl text-sm border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
+          className="px-3 py-1.5 rounded-lg text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-colors"
         />
       </div>
       {(dateFrom || dateTo) && (

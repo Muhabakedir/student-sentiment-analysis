@@ -12,22 +12,22 @@ export default function StatCard({ label, value, icon: Icon, color, sub }) {
   };
 
   return (
-    <div className="bg-white dark:bg-black rounded-2xl p-5 shadow-sm border border-gray-200 dark:border-gray-800 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white dark:bg-gray-900 rounded-lg p-4 border border-gray-200 dark:border-gray-800 hover:shadow-md transition-shadow duration-200">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm text-gray-500 dark:text-gray-600 font-medium">
+          <p className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">
             {label}
           </p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-gray-300 mt-1">
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
             {value}
           </p>
           {sub && (
-            <p className="text-xs text-gray-400 dark:text-gray-600 mt-1">
+            <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
               {sub}
             </p>
           )}
         </div>
-        <div className={`p-3 rounded-xl ${colorMap[color] || colorMap.indigo}`}>
+        <div className={`p-2.5 rounded-lg ${colorMap[color] || colorMap.indigo}`}>
           <Icon size={20} />
         </div>
       </div>

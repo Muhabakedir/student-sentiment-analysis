@@ -25,19 +25,19 @@ export default function Navbar({ onMenuClick }) {
   const handleLogout = () => { logout(); navigate("/"); };
 
   return (
-    <header className="sticky top-0 z-10 bg-white dark:from-black dark:to-black border-b border-gray-200 dark:border-gray-800 px-4 lg:px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-10 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 px-4 lg:px-6 py-3 flex items-center justify-between">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-600 transition-colors"
+          className="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400 transition-colors"
           aria-label="Open menu"
         >
           <Menu size={20} />
         </button>
         <div>
-          <h1 className="text-base font-semibold text-gray-900 dark:text-gray-300 leading-tight">{page.title}</h1>
+          <h1 className="text-sm font-semibold text-gray-900 dark:text-gray-200 leading-tight">{page.title}</h1>
           {page.sub && (
-            <p className="text-xs text-gray-500 dark:text-gray-600 hidden sm:block mt-0.5">{page.sub}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-500 hidden sm:block mt-0.5">{page.sub}</p>
           )}
         </div>
       </div>
@@ -46,10 +46,10 @@ export default function Navbar({ onMenuClick }) {
         {/* Theme toggle */}
         <button
           onClick={() => setDarkMode(!darkMode)}
-          className={`p-2 rounded-xl border transition-all
+          className={`p-2 rounded-lg border transition-all
             ${darkMode
-              ? "bg-gray-800 border-gray-700 text-gray-600 hover:bg-gray-700"
-              : "bg-gray-100 border-gray-200 text-gray-600 hover:bg-gray-200"
+              ? "bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-gray-300"
+              : "bg-gray-100 border-gray-200 text-gray-500 hover:bg-gray-200 hover:text-gray-700"
             }`}
           title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           aria-label="Toggle theme"
@@ -58,26 +58,26 @@ export default function Navbar({ onMenuClick }) {
         </button>
 
         {/* Admin profile + logout */}
-        <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-800 ml-1">
+        <div className="flex items-center gap-2 pl-3 border-l border-gray-200 dark:border-gray-700 ml-1">
           <div className="hidden sm:block text-right">
             <div className="flex items-center gap-1.5 justify-end">
-              <p className="text-xs font-medium text-gray-700 dark:text-gray-600 leading-tight">{email || "Admin"}</p>
+              <p className="text-xs font-medium text-gray-700 dark:text-gray-400 leading-tight">{email || "Admin"}</p>
               {isSuperAdmin && (
                 <span title="Superadmin">
-                  <Crown size={12} className="text-yellow-500" />
+                  <Crown size={12} className="text-amber-500" />
                 </span>
               )}
             </div>
-            <p className="text-xs text-gray-500 dark:text-gray-700">
+            <p className="text-xs text-gray-500 dark:text-gray-500">
               {isSuperAdmin ? "Superadmin" : "Administrator"}
             </p>
           </div>
-          <div className="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold">
+          <div className="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center text-white text-xs font-bold">
             {initials}
           </div>
           <button
             onClick={handleLogout}
-            className="p-2 rounded-xl text-gray-400 hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-gray-800 dark:text-gray-600 transition-colors"
+            className="p-2 rounded-lg text-gray-400 hover:text-rose-500 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-gray-800 transition-colors"
             title="Sign out"
             aria-label="Sign out"
           >
