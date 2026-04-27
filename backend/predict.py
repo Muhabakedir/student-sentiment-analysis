@@ -7,6 +7,31 @@ load_dotenv()
 # ── LABEL MAPPING ────────────────────────────────────────
 ID2LABEL = {0: "negative", 1: "neutral", 2: "positive"}
 
+def _resolve_label(label: str) -> str:
+    """Map HF model output labels to standard sentiment names.
+    
+    Handles both formats:
+      - Named labels:  "NEGATIVE", "POSITIVE", "NEUTRAL"
+      - Indexed labels: "LABEL_0", "LABEL_1", "LABEL_2"
+    """
+    upper = label.upper().strip()
+    # Named labels (e.g. cardiffnlp model)
+    if "NEGATIVE" in upper:
+        return "negative"
+    if "POSITIVE" in upper:
+        return "positive"
+    if "NEUTRAL" in upper:
+        return "neutral"
+    # Indexed labels (e.g. muhaba23/student-sentiment-model)
+    if upper.startswith("LABEL_"):
+        try:
+            idx = int(upper.split("_", 1)[1])
+            return ID2LABEL.get(idx, "neutral")
+        except (ValueError, IndexError):
+            return "neutral"
+    # Fallback
+    return "neutral"
+
 # ── NEGATIVE OVERRIDE PATTERNS ──────────────────────────────
 # Regex patterns that ALWAYS indicate negative sentiment,
 # regardless of what the model says.
@@ -53,7 +78,7 @@ POSITIVE_WORDS = {
 
 # ── HUGGING FACE API CONFIGURATION ────────────────────────
 HF_API_TOKEN = os.getenv("HF_API_TOKEN", "")
-HF_MODEL_NAME = os.getenv("HF_MODEL_NAME", "cardiffnlp/twitter-roberta-base-sentiment-latest")
+HF_MODEL_NAME = os.getenv("HF_MODEL_NAME", "muhaba23/student-sentiment-model")
 
 # ── CHECK API READY ────────────────────────────────────────
 def model_ready() -> bool:
@@ -74,22 +99,15 @@ def predict(text: str) -> dict:
                 label = best_pred.label
                 confidence = best_pred.score
 
-                if "NEGATIVE" in label.upper():
-                    sentiment = "negative"
-                elif "POSITIVE" in label.upper():
-                    sentiment = "positive"
-                else:
-                    sentiment = "neutral"
+                sentiment = _resolve_label(label)
 
                 prob_dict = {}
                 for pred in result:
-                    pred_label = pred.label
-                    if "NEGATIVE" in pred_label.upper():
-                        prob_dict["negative"] = round(pred.score, 4)
-                    elif "POSITIVE" in pred_label.upper():
-                        prob_dict["positive"] = round(pred.score, 4)
-                    else:
-                        prob_dict["neutral"] = round(pred.score, 4)
+                    resolved = _resolve_label(pred.label)
+                    prob_dict[resolved] = round(pred.score, 4)
+                # If multiple preds resolve to same key, keep the highest score
+                for key in ["negative", "neutral", "positive"]:
+                    prob_dict.setdefault(key, 0.0)
 
                 # ── Negative override: fix model misclassifications ──
                 if sentiment != "negative" and _is_forcibly_negative(text):
