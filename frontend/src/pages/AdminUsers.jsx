@@ -129,7 +129,9 @@ export default function AdminUsers() {
   if (!isSuperAdmin) {
     return (
       <div className="bg-white dark:bg-black rounded-2xl p-10 text-center border border-gray-200 dark:border-gray-800 shadow-sm">
-        <Crown size={32} className="mx-auto text-amber-500 mb-3" />
+        <div className="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center mx-auto mb-4">
+          <Crown size={32} className="text-amber-500" />
+        </div>
         <p className="text-sm font-semibold text-gray-900 dark:text-gray-300">Superadmin Access Required</p>
         <p className="text-xs text-gray-500 dark:text-gray-600 mt-1">Only the superadmin can manage administrator accounts.</p>
       </div>
@@ -141,9 +143,11 @@ export default function AdminUsers() {
 
       {/* Pending reset requests banner */}
       {resetRequests.length > 0 && (
-        <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-2xl px-5 py-4">
+        <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-2xl px-6 py-4 shadow-sm">
           <div className="flex items-start gap-3">
-            <AlertCircle size={18} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <div className="p-2 bg-amber-100 dark:bg-amber-900/40 rounded-xl shrink-0">
+              <AlertCircle size={18} className="text-amber-600 dark:text-amber-400" />
+            </div>
             <div>
               <p className="text-sm font-semibold text-amber-700 dark:text-amber-300">
                 {resetRequests.length} pending password reset request{resetRequests.length > 1 ? "s" : ""}
@@ -159,7 +163,7 @@ export default function AdminUsers() {
                       {user && (
                         <button
                           onClick={() => { setSetPassModal({ id: user.id, email: user.email }); }}
-                          className="text-xs px-3 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/40 dark:hover:bg-amber-800 text-amber-700 dark:text-amber-300 font-medium transition-colors shrink-0 border border-amber-200 dark:border-amber-800"
+                          className="text-xs px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/40 dark:hover:bg-amber-800 text-amber-700 dark:text-amber-300 font-medium transition-colors shrink-0 border border-amber-200 dark:border-amber-800"
                         >
                           Send Reset Link
                         </button>
@@ -234,12 +238,12 @@ export default function AdminUsers() {
 
       {/* Admin List */}
       <div className="bg-white dark:bg-black rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800">
-        <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-300 flex items-center gap-2">
             <Shield size={15} className="text-violet-500 dark:text-gray-500" />
             All Admin Accounts
           </h2>
-          <span className="text-xs text-gray-500 dark:text-gray-600 bg-gray-100 dark:bg-gray-900 px-2.5 py-1 rounded-lg">
+          <span className="text-xs text-gray-500 dark:text-gray-600 bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded-lg">
             {users.length} total
           </span>
         </div>
@@ -249,27 +253,27 @@ export default function AdminUsers() {
         ) : (
           <div className="divide-y divide-gray-100 dark:divide-gray-800">
             {users.map(user => (
-              <div key={user.id} className="px-5 py-4 flex items-center justify-between gap-4 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+              <div key={user.id} className="px-6 py-4 flex items-center justify-between gap-4 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold shrink-0
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold shrink-0
                     ${user.is_superadmin ? "bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400" : "bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400"}`}>
-                    {user.is_superadmin ? <Crown size={15} /> : user.email.slice(0, 2).toUpperCase()}
+                    {user.is_superadmin ? <Crown size={16} /> : user.email.slice(0, 2).toUpperCase()}
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <p className="text-sm font-medium text-gray-900 dark:text-gray-300 truncate">{user.email}</p>
                       {user.is_superadmin && (
-                        <span className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full font-medium shrink-0">
+                        <span className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-2.5 py-1 rounded-full font-medium shrink-0">
                           Superadmin
                         </span>
                       )}
                       {user.status === "pending" && (
-                        <span className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full font-medium shrink-0">
+                        <span className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-2.5 py-1 rounded-full font-medium shrink-0">
                           Pending Activation
                         </span>
                       )}
                       {hasPendingReset(user.email) && (
-                        <span className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full font-medium shrink-0 flex items-center gap-1">
+                        <span className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-2.5 py-1 rounded-full font-medium shrink-0 flex items-center gap-1">
                           <AlertCircle size={10} /> Reset requested
                         </span>
                       )}
@@ -279,7 +283,7 @@ export default function AdminUsers() {
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${
+                  <span className={`text-xs px-3 py-1.5 rounded-full font-medium ${
                     user.is_active
                       ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400"
                       : "bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-600"
@@ -293,7 +297,7 @@ export default function AdminUsers() {
                     className="p-2 rounded-xl text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                     title="Trigger password reset"
                   >
-                    <KeyRound size={15} />
+                    <KeyRound size={16} />
                   </button>
 
                   {/* Toggle active */}
@@ -307,7 +311,7 @@ export default function AdminUsers() {
                   <button onClick={() => handleDelete(user.id, user.email)}
                     className="p-2 rounded-xl text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors"
                     title="Delete admin">
-                    <Trash2 size={15} />
+                    <Trash2 size={16} />
                   </button>
                 </div>
               </div>
@@ -323,14 +327,14 @@ export default function AdminUsers() {
             <div className="flex items-center justify-between mb-5">
               <div>
                 <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-300 flex items-center gap-2">
-                  <KeyRound size={15} className="text-violet-500 dark:text-gray-500" />
+                  <KeyRound size={16} className="text-violet-500 dark:text-gray-500" />
                   Trigger Password Reset
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-600 mt-0.5">{setPassModal.email}</p>
               </div>
               <button onClick={() => setSetPassModal(null)}
-                className="p-1.5 rounded-lg text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                <X size={16} />
+                className="p-2 rounded-xl text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                <X size={18} />
               </button>
             </div>
 
