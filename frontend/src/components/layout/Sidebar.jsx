@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useAdminUsers } from "./Layout";
 import {
   LayoutDashboard, Server, MessageSquare,
   Tag, Lightbulb, GraduationCap, X, Users,
@@ -24,6 +25,7 @@ const navItems = {
 
 export default function Sidebar({ open, onClose }) {
   const { isSuperAdmin } = useAuth();
+  const { adminUsersExpanded, setAdminUsersExpanded } = useAdminUsers();
   return (
     <>
       {open && (
@@ -158,20 +160,17 @@ export default function Sidebar({ open, onClose }) {
               Administration
             </p>
             {isSuperAdmin && (
-              <NavLink
-                to="/dashboard/users"
-                onClick={onClose}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150
-                  ${isActive
+              <button
+                onClick={() => { setAdminUsersExpanded(!adminUsersExpanded); onClose(); }}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 w-full text-left
+                  ${adminUsersExpanded
                     ? "bg-violet-600 text-white"
                     : "text-slate-300 dark:text-gray-500 hover:bg-slate-800 dark:hover:bg-gray-800 hover:text-white dark:hover:text-gray-300"
-                  }`
-                }
+                  }`}
               >
                 <Users size={17} />
                 Admin Users
-              </NavLink>
+              </button>
             )}
             {!isSuperAdmin && (
               <p className="px-3 py-2 text-xs text-slate-500 dark:text-gray-600 italic">
