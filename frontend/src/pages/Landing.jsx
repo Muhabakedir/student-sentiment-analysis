@@ -25,7 +25,7 @@ export default function Landing() {
       {/* Navbar */}
       <header className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center shadow-md">
             <GraduationCap size={21} className="text-white" />
           </div>
           <div>
@@ -36,7 +36,7 @@ export default function Landing() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className={`p-2 rounded-xl border transition-all
+            className={`p-2 rounded-lg border transition-all
               ${darkMode ? "bg-gray-800 border-gray-700 text-yellow-400 hover:bg-gray-700" : "bg-gray-100 border-gray-200 text-gray-600 hover:bg-gray-200"}`}
             title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
@@ -44,7 +44,7 @@ export default function Landing() {
           </button>
           <button
             onClick={() => navigate("/login")}
-            className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-colors shadow-sm"
+            className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors shadow-sm"
           >
             Login
           </button>
@@ -53,7 +53,7 @@ export default function Landing() {
 
       {/* Hero */}
       <main className="flex-1 flex flex-col items-center justify-center text-center px-6 py-16 max-w-5xl mx-auto w-full">
-        <div className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+        <div className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-xs font-semibold px-3 py-1.5 rounded-lg mb-6">
           <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse" />
           Powered by RoBERTa BERT
         </div>
@@ -70,14 +70,14 @@ export default function Landing() {
         <div className="flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => navigate("/login")}
-            className="flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-2xl transition-all shadow-lg hover:shadow-indigo-200 dark:hover:shadow-indigo-900/50"
+            className="flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-all shadow-lg hover:shadow-indigo-200 dark:hover:shadow-indigo-900/50"
           >
             Sign In
             <ArrowRight size={16} />
           </button>
           <button
             onClick={() => navigate("/login")}
-            className="flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-2xl transition-all border border-indigo-200 dark:border-indigo-800"
+            className="flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 rounded-lg transition-all border border-indigo-200 dark:border-indigo-800"
           >
             Student Portal
           </button>
@@ -92,7 +92,7 @@ export default function Landing() {
           ].map(({ label, value }) => (
             <div key={label} className="text-center">
               <p className="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">{value}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{label}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">{label}</p>
             </div>
           ))}
         </div>
@@ -100,18 +100,18 @@ export default function Landing() {
         {/* Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           {features.map(({ icon: Icon, title, desc, color }) => (
-            <div key={title} className="bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-800 text-left hover:shadow-md transition-shadow">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${colorMap[color]}`}>
+            <div key={title} className="bg-white dark:bg-gray-900 rounded-lg p-5 shadow-sm border border-gray-200 dark:border-gray-800 text-left hover:shadow-md transition-shadow">
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${colorMap[color]}`}>
                 <Icon size={18} />
               </div>
-              <p className="text-sm font-semibold text-gray-800 dark:text-white mb-1">{title}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{desc}</p>
+              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">{title}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-500 leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
       </main>
 
-      <footer className="text-center py-6 text-xs text-gray-400 dark:text-gray-600 border-t border-gray-100 dark:border-gray-800">
+      <footer className="text-center py-6 text-xs text-gray-400 dark:text-gray-500 border-t border-gray-200 dark:border-gray-800">
         © 2026 UniFeedback — University Student Feedback Analysis System
       </footer>
     </div>
