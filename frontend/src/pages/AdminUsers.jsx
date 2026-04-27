@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
   UserPlus, Trash2, Shield,
-  Crown, ToggleLeft, ToggleRight, KeyRound, X, AlertCircle,
+  Crown, ToggleLeft, ToggleRight, KeyRound, X, AlertCircle, RefreshCw,
 } from "lucide-react";
 import API from "../config";
 
@@ -15,6 +15,7 @@ export default function AdminUsers() {
   const [error, setError]             = useState("");
   const [success, setSuccess]         = useState("");
   const [adding, setAdding]           = useState(false);
+  const [reanalyzing, setReanalyzing] = useState(false);
 
   // Set password modal
   const [setPassModal, setSetPassModal] = useState(null);  // { id, email }
@@ -102,6 +103,24 @@ export default function AdminUsers() {
       }
     } catch { flash("error", "Cannot connect to backend."); }
     finally { setSettingPass(false); }
+  };
+
+  const handleReanalyze = async () => {
+    if (!confirm("Re-analyze ALL feedback with current sentiment model? This may take a moment.")) return;
+    setReanalyzing(true);
+    try {
+      const r = await fetch(`${API}/api/admin/reanalyze`, {
+        method: "POST", headers,
+      });
+      if (r.ok) {
+        const d = await r.json();
+        flash("success", d.message);
+      } else {
+        const d = await r.json();
+        flash("error", d.detail || "Failed to re-analyze feedback.");
+      }
+    } catch { flash("error", "Cannot connect to backend."); }
+    finally { setReanalyzing(false); }
   };
 
   // Check if a user has a pending reset request
@@ -192,6 +211,25 @@ export default function AdminUsers() {
         </form>
         {error   && <p className="mt-3 text-xs text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 rounded-xl px-3 py-2">{error}</p>}
         {success && <p className="mt-3 text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 rounded-xl px-3 py-2">{success}</p>}
+      </div>
+
+      {/* Re-analyze Feedback Button */}
+      <div className="bg-white dark:bg-black rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
+        <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-300 mb-4 flex items-center gap-2">
+          <RefreshCw size={16} className="text-violet-500 dark:text-gray-500" />
+          Re-analyze Feedback
+        </h2>
+        <p className="text-xs text-gray-500 dark:text-gray-600 mb-4">
+          Re-process all feedback entries with the updated sentiment model (includes negative override patterns for phrases like "zero quality", "not good", etc.).
+        </p>
+        <button
+          onClick={handleReanalyze}
+          disabled={reanalyzing}
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <RefreshCw size={15} className={reanalyzing ? "animate-spin" : ""} />
+          {reanalyzing ? "Re-analyzing..." : "Re-analyze All Feedback"}
+        </button>
       </div>
 
       {/* Admin List */}
